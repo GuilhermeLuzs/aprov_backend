@@ -10,6 +10,6 @@ class TagController extends Controller
 {
     public function index(): JsonResponse
     {
-        return $this->sendResponse(TagResource::collection(Tag::orderBy('label')->get()));
+        return $this->sendResponse(TagResource::collection(Tag::orderBy('name')->get()));
     }
 }

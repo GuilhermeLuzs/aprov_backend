@@ -6,12 +6,16 @@ use App\Enums\CompanyModality;
 use App\Enums\CompanySize;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Company extends Model
 {
     protected $fillable = [
         'cnpj',
         'name',
+        'logo_url',
+        'description',
         'email',
         'phone',
         'zip_code',
@@ -44,5 +48,15 @@ class Company extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function coin(): HasOne
+    {
+        return $this->hasOne(CompanyCoin::class);
+    }
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(Item::class);
     }
 }
