@@ -6,9 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Review extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'customer_id',
         'item_id',
@@ -19,7 +22,10 @@ class Review extends Model
         'average_rating',
         'comment',
         'would_buy_again',
+        'media_consent',
+        'origin',
         'status',
+        'moderated_by',
     ];
 
     protected function casts(): array
@@ -31,6 +37,7 @@ class Review extends Model
             'conformity_rating' => 'integer',
             'value_rating' => 'integer',
             'would_buy_again' => 'boolean',
+            'media_consent' => 'boolean',
             'average_rating' => 'decimal:2',
         ];
     }

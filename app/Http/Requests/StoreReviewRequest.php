@@ -20,6 +20,7 @@ class StoreReviewRequest extends FormRequest
             'wouldBuyAgain' => ['required', 'boolean'],
             'media' => ['nullable', 'array', 'max:6'],
             'media.*' => ['file', 'mimes:jpg,jpeg,png,webp,mp4,webm', 'max:51200'],
+            'mediaConsent' => ['nullable', 'boolean'],
         ];
     }
 

@@ -25,6 +25,7 @@ class ReviewResource extends JsonResource
             'averageRating' => (float) $this->average_rating,
             'comment' => $this->comment,
             'wouldBuyAgain' => $this->would_buy_again,
+            'mediaConsent' => $this->media_consent,
             'positiveTags' => TagResource::collection($tags->where('sentiment', TagSentiment::Positive)->values()),
             'negativeTags' => TagResource::collection($tags->where('sentiment', TagSentiment::Negative)->values()),
             'media' => ReviewMediaResource::collection($this->whenLoaded('media')),

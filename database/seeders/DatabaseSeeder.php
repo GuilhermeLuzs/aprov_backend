@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             'birth_date' => '2000-03-14',
         ]);
 
+        $this->call(CompanySeeder::class);
         $this->call(CatalogSeeder::class);
     }
 }

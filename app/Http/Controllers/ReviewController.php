@@ -42,6 +42,7 @@ class ReviewController extends Controller
                 'average_rating' => round(array_sum($ratings) / count($ratings), 1),
                 'comment' => $request->validated('comment'),
                 'would_buy_again' => $request->validated('wouldBuyAgain'),
+                'media_consent' => $request->validated('mediaConsent') ?? false,
             ]);
 
             $review->tags()->sync($request->validated('tagIds'));

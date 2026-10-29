@@ -13,6 +13,8 @@ class ReviewMedia extends Model
         'review_id',
         'type',
         'path',
+        'valid',
+        'ai_labels',
         'width',
         'height',
         'duration_seconds',
@@ -23,6 +25,8 @@ class ReviewMedia extends Model
     {
         return [
             'type' => ReviewMediaType::class,
+            'valid' => 'boolean',
+            'ai_labels' => 'array',
         ];
     }
 
