@@ -14,7 +14,7 @@ class SavePreferencesRequest extends FormRequest
             'categories' => ['required', 'array', 'min:3'],
             'categories.*' => ['string', 'distinct', Rule::enum(Category::class)],
             'companyIds' => ['required', 'array', 'min:2'],
-            'companyIds.*' => ['string', 'distinct'],
+            'companyIds.*' => ['integer', 'distinct', Rule::exists('companies', 'id')],
             'discoverySource' => ['required', Rule::enum(\App\Enums\DiscoverySource::class)],
         ];
     }
@@ -26,6 +26,7 @@ class SavePreferencesRequest extends FormRequest
             'categories.min' => 'Escolha pelo menos 3 categorias.',
             'categories.*' => 'Categoria inválida.',
             'companyIds.min' => 'Escolha pelo menos 2 empresas.',
+            'companyIds.*' => 'Empresa inválida.',
             'discoverySource' => 'Diga como você conheceu a APROV.',
         ];
     }

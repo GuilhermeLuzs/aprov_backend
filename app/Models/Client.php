@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\CollectionsVisibility;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Client extends Model
@@ -17,7 +18,6 @@ class Client extends Model
         'collections_visibility',
         'preferred_categories',
         'discovery_source',
-        'followed_company_ids',
     ];
 
     protected $hidden = [
@@ -30,7 +30,6 @@ class Client extends Model
             'birth_date' => 'date',
             'collections_visibility' => CollectionsVisibility::class,
             'preferred_categories' => 'array',
-            'followed_company_ids' => 'array',
             'points_balance' => 'integer',
             'xp' => 'integer',
             'level' => 'integer',
@@ -45,5 +44,10 @@ class Client extends Model
     public function coinBalances(): HasMany
     {
         return $this->hasMany(ClientCoinBalance::class);
+    }
+
+    public function followedCompanies(): BelongsToMany
+    {
+        return $this->belongsToMany(Company::class)->withTimestamps();
     }
 }
