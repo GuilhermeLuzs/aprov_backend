@@ -14,6 +14,9 @@ class Client extends Model
         'birth_date',
         'bio',
         'collections_visibility',
+        'preferred_categories',
+        'discovery_source',
+        'followed_company_ids',
     ];
 
     protected $hidden = [
@@ -25,6 +28,8 @@ class Client extends Model
         return [
             'birth_date' => 'date',
             'collections_visibility' => CollectionsVisibility::class,
+            'preferred_categories' => 'array',
+            'followed_company_ids' => 'array',
         ];
     }
 
