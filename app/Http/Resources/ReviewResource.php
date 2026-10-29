@@ -16,7 +16,7 @@ class ReviewResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'itemId' => $this->whenLoaded('item', fn () => $this->item->mock_id, $this->item_id),
+            'itemId' => $this->item_id,
             'customerId' => $this->customer_id,
             'deliveryRating' => $this->delivery_rating,
             'qualityRating' => $this->quality_rating,
@@ -27,6 +27,7 @@ class ReviewResource extends JsonResource
             'wouldBuyAgain' => $this->would_buy_again,
             'positiveTags' => TagResource::collection($tags->where('sentiment', TagSentiment::Positive)->values()),
             'negativeTags' => TagResource::collection($tags->where('sentiment', TagSentiment::Negative)->values()),
+            'media' => ReviewMediaResource::collection($this->whenLoaded('media')),
             'createdAt' => $this->created_at->toIso8601String(),
         ];
     }

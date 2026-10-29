@@ -13,11 +13,11 @@ class CatalogSeeder extends Seeder
         $data = require database_path('data/catalog_seed.php');
 
         foreach ($data['items'] as $item) {
-            Item::create(['mock_id' => $item['id'], ...array_diff_key($item, ['id' => null])]);
+            Item::create(array_diff_key($item, ['id' => null]));
         }
 
         foreach ($data['tags'] as $tag) {
-            Tag::create(['mock_id' => $tag['id'], ...array_diff_key($tag, ['id' => null])]);
+            Tag::create(array_diff_key($tag, ['id' => null]));
         }
     }
 }

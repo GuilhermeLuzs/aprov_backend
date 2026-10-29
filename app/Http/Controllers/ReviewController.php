@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ReviewMediaType;
 use App\Enums\UserRole;
 use App\Http\Requests\StoreReviewRequest;
 use App\Http\Resources\ReviewResource;
-use App\Models\Item;
 use App\Models\Review;
-use App\Models\Tag;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response as Status;
 
@@ -29,13 +29,12 @@ class ReviewController extends Controller
             $request->validated('valueRating'),
         ];
 
-        $item = Item::where('mock_id', $request->validated('itemId'))->firstOrFail();
-        $tagIds = Tag::whereIn('mock_id', $request->validated('tagIds'))->pluck('id');
+        $media = $request->file('media', []);
 
-        $review = DB::transaction(function () use ($request, $user, $item, $tagIds, $ratings) {
+        $review = DB::transaction(function () use ($request, $user, $ratings, $media) {
             $review = Review::create([
                 'customer_id' => $user->client->id,
-                'item_id' => $item->id,
+                'item_id' => $request->validated('itemId'),
                 'delivery_rating' => $ratings[0],
                 'quality_rating' => $ratings[1],
                 'conformity_rating' => $ratings[2],
@@ -45,13 +44,29 @@ class ReviewController extends Controller
                 'would_buy_again' => $request->validated('wouldBuyAgain'),
             ]);
 
-            $review->tags()->sync($tagIds);
+            $review->tags()->sync($request->validated('tagIds'));
+
+            foreach ($media as $position => $file) {
+                $this->storeMedia($review, $file, $position);
+            }
 
             return $review;
         });
 
-        $review->load(['tags', 'item']);
+        $review->load(['tags', 'media']);
 
         return $this->sendResponse(new ReviewResource($review), 'Avaliação publicada.', Status::HTTP_CREATED);
+    }
+
+    private function storeMedia(Review $review, UploadedFile $file, int $position): void
+    {
+        $isVideo = str_starts_with($file->getMimeType(), 'video/');
+        $path = $file->store('reviews', 'public');
+
+        $review->media()->create([
+            'type' => $isVideo ? ReviewMediaType::Video : ReviewMediaType::Photo,
+            'path' => $path,
+            'position' => $position,
+        ]);
     }
 }

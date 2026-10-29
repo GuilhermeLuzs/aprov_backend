@@ -12,7 +12,7 @@ class TagResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->mock_id,
+            'id' => $this->id,
             'label' => $this->label,
             'sentiment' => $this->sentiment,
             'characteristic' => $this->characteristic,

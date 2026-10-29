@@ -10,7 +10,6 @@ return new class extends Migration
     {
         Schema::create('tags', function (Blueprint $table) {
             $table->id();
-            $table->string('mock_id')->unique();
             $table->string('label');
             $table->string('sentiment', 20);
             $table->string('characteristic', 20);

@@ -12,7 +12,7 @@ class ItemResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->mock_id,
+            'id' => $this->id,
             'companyId' => $this->company_id,
             'kind' => $this->kind,
             'categories' => $this->categories,

@@ -10,7 +10,6 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->string('mock_id')->unique();
             $table->string('company_id')->nullable()->index();
             $table->string('kind', 20);
             $table->json('categories');

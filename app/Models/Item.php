@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Item extends Model
 {
     protected $fillable = [
-        'mock_id',
         'company_id',
         'kind',
         'categories',
@@ -32,10 +31,5 @@ class Item extends Model
     public function reviews(): HasMany
     {
         return $this->hasMany(Review::class);
-    }
-
-    public function getRouteKeyName(): string
-    {
-        return 'mock_id';
     }
 }
