@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call(CompanySeeder::class);
+        $this->call(CompanyCoinRuleSeeder::class);
         $this->call(CatalogSeeder::class);
     }
 }

@@ -7,13 +7,19 @@ use App\Enums\UserRole;
 use App\Http\Requests\StoreReviewRequest;
 use App\Http\Resources\ReviewResource;
 use App\Models\Review;
+use App\Services\ReviewRewardCalculator;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response as Status;
 
 class ReviewController extends Controller
 {
+    public function __construct(private readonly ReviewRewardCalculator $rewardCalculator)
+    {
+    }
+
     public function store(StoreReviewRequest $request): JsonResponse
     {
         $user = $request->user();
@@ -56,7 +62,21 @@ class ReviewController extends Controller
 
         $review->load(['tags', 'media']);
 
+        $this->rewardCalculator->credit($review);
+        $review->load('reward');
+
         return $this->sendResponse(new ReviewResource($review), 'Avaliação publicada.', Status::HTTP_CREATED);
+    }
+
+    public function mine(Request $request): JsonResponse
+    {
+        $reviews = Review::query()
+            ->where('customer_id', $request->user()->client->id)
+            ->with(['tags', 'media', 'reward'])
+            ->latest()
+            ->get();
+
+        return $this->sendResponse(ReviewResource::collection($reviews));
     }
 
     private function storeMedia(Review $review, UploadedFile $file, int $position): void

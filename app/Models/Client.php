@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\CollectionsVisibility;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Client extends Model
 {
@@ -30,11 +31,19 @@ class Client extends Model
             'collections_visibility' => CollectionsVisibility::class,
             'preferred_categories' => 'array',
             'followed_company_ids' => 'array',
+            'points_balance' => 'integer',
+            'xp' => 'integer',
+            'level' => 'integer',
         ];
     }
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function coinBalances(): HasMany
+    {
+        return $this->hasMany(ClientCoinBalance::class);
     }
 }
