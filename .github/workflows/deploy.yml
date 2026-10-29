@@ -18,6 +18,8 @@ jobs:
             cd /var/www/aprov_backend
             git pull origin main
             composer install --no-dev --optimize-autoloader
+            sudo chown -R ubuntu:www-data storage bootstrap/cache
+            sudo chmod -R 775 storage bootstrap/cache
             php artisan migrate --force
             php artisan config:cache
             php artisan route:cache
