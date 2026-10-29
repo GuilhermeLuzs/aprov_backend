@@ -15,8 +15,8 @@ class PreferencesController extends Controller
         $client->update([
             'preferred_categories' => $request->validated('categories'),
             'discovery_source' => $request->validated('discoverySource'),
-            'followed_company_ids' => $request->validated('companyIds'),
         ]);
+        $client->followedCompanies()->sync($request->validated('companyIds'));
 
         return $this->sendResponse(new ClientResource($client), 'Preferências salvas.');
     }

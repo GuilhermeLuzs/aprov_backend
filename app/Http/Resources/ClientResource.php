@@ -19,7 +19,7 @@ class ClientResource extends JsonResource
             'birthDate' => $this->birth_date->toDateString(),
             'preferredCategories' => $this->preferred_categories,
             'discoverySource' => $this->discovery_source,
-            'followedCompanyIds' => $this->followed_company_ids,
+            'followedCompanyIds' => $this->followedCompanies->pluck('id')->values(),
             'pointsBalance' => $this->points_balance,
             'xp' => $this->xp,
             'level' => $this->level,
