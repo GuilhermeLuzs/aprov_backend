@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\CollectionsVisibility;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -11,6 +12,8 @@ class Client extends Model
         'username',
         'cpf',
         'birth_date',
+        'bio',
+        'collections_visibility',
     ];
 
     protected $hidden = [
@@ -21,6 +24,7 @@ class Client extends Model
     {
         return [
             'birth_date' => 'date',
+            'collections_visibility' => CollectionsVisibility::class,
         ];
     }
 

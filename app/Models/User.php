@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\UserRole;
+use App\Enums\UserStatus;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -20,6 +21,8 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'status',
+        'avatar_path',
     ];
 
     protected $hidden = [
@@ -33,11 +36,18 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'role' => UserRole::class,
+            'status' => UserStatus::class,
+            'last_login_at' => 'datetime',
         ];
     }
 
     public function client(): HasOne
     {
         return $this->hasOne(Client::class);
+    }
+
+    public function company(): HasOne
+    {
+        return $this->hasOne(Company::class);
     }
 }
