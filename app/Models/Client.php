@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\CollectionsVisibility;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -11,6 +12,8 @@ class Client extends Model
         'username',
         'cpf',
         'birth_date',
+        'bio',
+        'collections_visibility',
         'preferred_categories',
         'discovery_source',
         'followed_company_ids',
@@ -24,6 +27,7 @@ class Client extends Model
     {
         return [
             'birth_date' => 'date',
+            'collections_visibility' => CollectionsVisibility::class,
             'preferred_categories' => 'array',
             'followed_company_ids' => 'array',
         ];
