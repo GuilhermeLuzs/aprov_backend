@@ -17,6 +17,9 @@ class ClientResource extends JsonResource
             'username' => $this->username,
             'email' => $this->user->email,
             'birthDate' => $this->birth_date->toDateString(),
+            'preferredCategories' => $this->preferred_categories,
+            'discoverySource' => $this->discovery_source,
+            'followedCompanyIds' => $this->followed_company_ids,
             'createdAt' => $this->created_at->toIso8601String(),
         ];
     }

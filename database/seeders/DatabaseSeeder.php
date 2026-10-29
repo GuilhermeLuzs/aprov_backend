@@ -15,8 +15,8 @@ class DatabaseSeeder extends Seeder
     {
         $user = User::create([
             'name' => 'Mariana Albuquerque Cavalcanti de Menezes',
-            'email' => 'cliente@aprov.com',
-            'password' => 'aprov1234',
+            'email' => 'mariana@aprov.com',
+            'password' => 'aprov123',
             'role' => UserRole::Client,
         ]);
 
@@ -25,5 +25,7 @@ class DatabaseSeeder extends Seeder
             'cpf' => '52998224725',
             'birth_date' => '2000-03-14',
         ]);
+
+        $this->call(CatalogSeeder::class);
     }
 }

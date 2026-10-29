@@ -11,6 +11,9 @@ class Client extends Model
         'username',
         'cpf',
         'birth_date',
+        'preferred_categories',
+        'discovery_source',
+        'followed_company_ids',
     ];
 
     protected $hidden = [
@@ -21,6 +24,8 @@ class Client extends Model
     {
         return [
             'birth_date' => 'date',
+            'preferred_categories' => 'array',
+            'followed_company_ids' => 'array',
         ];
     }
 
