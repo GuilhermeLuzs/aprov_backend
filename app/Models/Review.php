@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Review extends Model
@@ -60,5 +61,10 @@ class Review extends Model
     public function media(): HasMany
     {
         return $this->hasMany(ReviewMedia::class)->orderBy('position');
+    }
+
+    public function reward(): HasOne
+    {
+        return $this->hasOne(ReviewReward::class);
     }
 }

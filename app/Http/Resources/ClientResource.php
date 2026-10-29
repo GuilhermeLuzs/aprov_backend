@@ -20,6 +20,9 @@ class ClientResource extends JsonResource
             'preferredCategories' => $this->preferred_categories,
             'discoverySource' => $this->discovery_source,
             'followedCompanyIds' => $this->followed_company_ids,
+            'pointsBalance' => $this->points_balance,
+            'xp' => $this->xp,
+            'level' => $this->level,
             'createdAt' => $this->created_at->toIso8601String(),
         ];
     }

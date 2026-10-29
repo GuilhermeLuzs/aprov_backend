@@ -29,6 +29,11 @@ class ReviewResource extends JsonResource
             'positiveTags' => TagResource::collection($tags->where('sentiment', TagSentiment::Positive)->values()),
             'negativeTags' => TagResource::collection($tags->where('sentiment', TagSentiment::Negative)->values()),
             'media' => ReviewMediaResource::collection($this->whenLoaded('media')),
+            'rewards' => $this->whenLoaded('reward', fn () => [
+                'coins' => $this->reward->coins,
+                'aprovPoints' => $this->reward->points,
+                'xp' => $this->reward->xp,
+            ]),
             'createdAt' => $this->created_at->toIso8601String(),
         ];
     }

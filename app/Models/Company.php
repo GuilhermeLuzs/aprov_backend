@@ -59,4 +59,9 @@ class Company extends Model
     {
         return $this->hasMany(Item::class);
     }
+
+    public function coinRuleTopics(): HasMany
+    {
+        return $this->hasMany(CompanyCoinRuleTopic::class);
+    }
 }
