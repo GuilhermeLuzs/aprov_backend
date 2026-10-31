@@ -24,7 +24,6 @@ class Review extends Model
         'comment',
         'would_buy_again',
         'media_consent',
-        'origin',
         'status',
         'moderated_by',
     ];
