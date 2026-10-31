@@ -6,7 +6,7 @@ use App\Rules\Cpf;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class RegisterClientRequest extends FormRequest
+class RegisterCustomerRequest extends FormRequest
 {
     protected function prepareForValidation(): void
     {
@@ -22,10 +22,10 @@ class RegisterClientRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'min:3', 'max:30', 'regex:/^[a-z0-9._]+$/', Rule::unique('clients', 'username')],
+            'username' => ['required', 'string', 'min:3', 'max:30', 'regex:/^[a-z0-9._]+$/', Rule::unique('customers', 'username')],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')],
             'birthDate' => ['required', 'date_format:Y-m-d', 'before:today', 'after_or_equal:1900-01-01'],
-            'cpf' => ['required', 'digits:11', new Cpf, Rule::unique('clients', 'cpf')],
+            'cpf' => ['required', 'digits:11', new Cpf, Rule::unique('customers', 'cpf')],
             'password' => ['required', 'string', 'min:8', 'regex:/[A-Za-zÀ-ÿ]/', 'regex:/\d/'],
         ];
     }

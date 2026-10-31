@@ -45,7 +45,7 @@ class Review extends Model
 
     public function customer(): BelongsTo
     {
-        return $this->belongsTo(Client::class, 'customer_id');
+        return $this->belongsTo(Customer::class, 'customer_id');
     }
 
     public function item(): BelongsTo

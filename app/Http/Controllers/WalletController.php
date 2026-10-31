@@ -10,12 +10,12 @@ class WalletController extends Controller
 {
     public function show(Request $request): JsonResponse
     {
-        $client = $request->user()->client;
+        $customer = $request->user()->customer;
 
         return $this->sendResponse([
-            'aprovPoints' => $client->points_balance,
+            'aprovPoints' => $customer->points_balance,
             'coins' => CoinBalanceResource::collection(
-                $client->coinBalances()->where('balance', '>', 0)->get()
+                $customer->coinBalances()->where('balance', '>', 0)->get()
             ),
         ]);
     }

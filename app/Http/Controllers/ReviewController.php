@@ -24,7 +24,7 @@ class ReviewController extends Controller
     {
         $user = $request->user();
 
-        if ($user->role !== UserRole::Client || ! $user->client) {
+        if ($user->role !== UserRole::Customer || ! $user->customer) {
             return $this->sendError('Só clientes podem publicar avaliações.', [], Status::HTTP_FORBIDDEN);
         }
 
@@ -39,7 +39,7 @@ class ReviewController extends Controller
 
         $review = DB::transaction(function () use ($request, $user, $ratings, $media) {
             $review = Review::create([
-                'customer_id' => $user->client->id,
+                'customer_id' => $user->customer->id,
                 'item_id' => $request->validated('itemId'),
                 'delivery_rating' => $ratings[0],
                 'quality_rating' => $ratings[1],
@@ -71,7 +71,7 @@ class ReviewController extends Controller
     public function mine(Request $request): JsonResponse
     {
         $reviews = Review::query()
-            ->where('customer_id', $request->user()->client->id)
+            ->where('customer_id', $request->user()->customer->id)
             ->with(['tags', 'media', 'reward'])
             ->latest()
             ->get();

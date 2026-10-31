@@ -2,11 +2,11 @@
 
 namespace App\Http\Resources;
 
-use App\Models\ClientCoinBalance;
+use App\Models\CustomerCoinBalance;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** @mixin ClientCoinBalance */
+/** @mixin CustomerCoinBalance */
 class CoinBalanceResource extends JsonResource
 {
     public function toArray(Request $request): array
