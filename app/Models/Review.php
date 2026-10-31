@@ -24,7 +24,6 @@ class Review extends Model
         'comment',
         'would_buy_again',
         'media_consent',
-        'origin',
         'status',
         'moderated_by',
     ];
@@ -45,7 +44,7 @@ class Review extends Model
 
     public function customer(): BelongsTo
     {
-        return $this->belongsTo(Client::class, 'customer_id');
+        return $this->belongsTo(Customer::class, 'customer_id');
     }
 
     public function item(): BelongsTo

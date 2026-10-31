@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class ClientCoinBalance extends Model
+class CustomerCoinBalance extends Model
 {
     protected $fillable = [
-        'client_id',
+        'customer_id',
         'company_id',
         'balance',
     ];
@@ -20,9 +20,9 @@ class ClientCoinBalance extends Model
         ];
     }
 
-    public function client(): BelongsTo
+    public function customer(): BelongsTo
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Customer::class);
     }
 
     public function company(): BelongsTo

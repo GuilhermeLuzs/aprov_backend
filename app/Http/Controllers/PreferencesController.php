@@ -3,21 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SavePreferencesRequest;
-use App\Http\Resources\ClientResource;
+use App\Http\Resources\CustomerResource;
 use Illuminate\Http\JsonResponse;
 
 class PreferencesController extends Controller
 {
     public function update(SavePreferencesRequest $request): JsonResponse
     {
-        $client = $request->user()->client;
+        $customer = $request->user()->customer;
 
-        $client->update([
+        $customer->update([
             'preferred_categories' => $request->validated('categories'),
             'discovery_source' => $request->validated('discoverySource'),
         ]);
-        $client->followedCompanies()->sync($request->validated('companyIds'));
+        $customer->followedCompanies()->sync($request->validated('companyIds'));
 
-        return $this->sendResponse(new ClientResource($client), 'Preferências salvas.');
+        return $this->sendResponse(new CustomerResource($customer), 'Preferências salvas.');
     }
 }

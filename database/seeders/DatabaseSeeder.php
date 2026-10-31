@@ -17,10 +17,10 @@ class DatabaseSeeder extends Seeder
             'name' => 'Mariana Albuquerque Cavalcanti de Menezes',
             'email' => 'mariana@aprov.com',
             'password' => 'aprov123',
-            'role' => UserRole::Client,
+            'role' => UserRole::Customer,
         ]);
 
-        $user->client()->create([
+        $user->customer()->create([
             'username' => 'mari.cavalcanti',
             'cpf' => '52998224725',
             'birth_date' => '2000-03-14',

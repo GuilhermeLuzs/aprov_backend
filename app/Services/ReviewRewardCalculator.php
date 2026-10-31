@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Enums\CoinRuleTopic;
 use App\Enums\ReviewMediaType;
-use App\Models\ClientCoinBalance;
+use App\Models\CustomerCoinBalance;
 use App\Models\Review;
 use App\Models\ReviewReward;
 use App\Support\CoinRuleTopicEvaluator;
@@ -45,17 +45,17 @@ class ReviewRewardCalculator
 
         return DB::transaction(function () use ($review, $company, $awarded, $coins, $points, $xp) {
             if ($company && $coins > 0) {
-                ClientCoinBalance::query()->updateOrCreate(
-                    ['client_id' => $review->customer_id, 'company_id' => $company->id],
+                CustomerCoinBalance::query()->updateOrCreate(
+                    ['customer_id' => $review->customer_id, 'company_id' => $company->id],
                     []
                 )->increment('balance', $coins);
             }
 
-            $client = $review->customer;
-            $client->increment('points_balance', $points);
-            $client->increment('xp', $xp);
-            $client->level = intdiv($client->xp, self::XP_PER_LEVEL) + 1;
-            $client->save();
+            $customer = $review->customer;
+            $customer->increment('points_balance', $points);
+            $customer->increment('xp', $xp);
+            $customer->level = intdiv($customer->xp, self::XP_PER_LEVEL) + 1;
+            $customer->save();
 
             return ReviewReward::create([
                 'review_id' => $review->id,

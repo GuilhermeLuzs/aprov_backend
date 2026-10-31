@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Client extends Model
+class Customer extends Model
 {
     protected $fillable = [
         'username',
@@ -43,7 +43,7 @@ class Client extends Model
 
     public function coinBalances(): HasMany
     {
-        return $this->hasMany(ClientCoinBalance::class);
+        return $this->hasMany(CustomerCoinBalance::class);
     }
 
     public function followedCompanies(): BelongsToMany
