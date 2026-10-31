@@ -21,6 +21,7 @@ jobs:
             sudo chown -R ubuntu:www-data storage bootstrap/cache
             sudo chmod -R 775 storage bootstrap/cache
             php artisan migrate --force
+            php artisan db:seed --class=TestAccountSeeder --force
             php artisan storage:link
             php artisan config:cache
             php artisan route:cache
