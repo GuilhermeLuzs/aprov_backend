@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RewardPreviewRequest;
 use App\Http\Resources\CoinRuleTopicStatusResource;
 use App\Models\Item;
+use App\Models\Review;
 use App\Support\CoinRuleTopicEvaluator;
 use App\Support\CoinRuleTopicFacts;
 use Illuminate\Http\JsonResponse;
@@ -13,6 +14,16 @@ class RewardPreviewController extends Controller
 {
     public function show(RewardPreviewRequest $request, Item $item): JsonResponse
     {
+        $customer = $request->user()->customer;
+
+        if ($customer && Review::customerReviewedBefore($customer->id, $item->id)) {
+            return $this->sendResponse([
+                'topics' => [],
+                'earned' => ['coins' => 0, 'aprovPoints' => 0, 'xp' => 0],
+                'reviewedBefore' => true,
+            ]);
+        }
+
         $item->loadMissing('company.coinRuleTopics');
 
         $facts = new CoinRuleTopicFacts(
@@ -36,6 +47,7 @@ class RewardPreviewController extends Controller
                 'aprovPoints' => (int) $satisfied->sum('points'),
                 'xp' => (int) $satisfied->sum('xp'),
             ],
+            'reviewedBefore' => false,
         ]);
     }
 }

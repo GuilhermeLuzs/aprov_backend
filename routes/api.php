@@ -21,6 +21,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('me', [AuthController::class, 'me']);
     Route::post('reviews', [ReviewController::class, 'store']);
+    Route::patch('reviews/{review}', [ReviewController::class, 'update']);
+    Route::delete('reviews/{review}/author', [ReviewController::class, 'removeAuthor']);
     Route::put('me/preferences', [PreferencesController::class, 'update']);
     Route::get('me/wallet', [WalletController::class, 'show']);
     Route::get('me/reviews', [ReviewController::class, 'mine']);

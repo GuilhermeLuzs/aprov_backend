@@ -21,6 +21,10 @@ class ReviewRewardCalculator
 
     public function credit(Review $review): ReviewReward
     {
+        if (Review::customerReviewedBefore($review->customer_id, $review->item_id, $review->id)) {
+            return $this->creditNothing($review);
+        }
+
         $review->loadMissing(['item.company.coinRuleTopics', 'tags', 'media']);
 
         $company = $review->item->company;
@@ -65,5 +69,16 @@ class ReviewRewardCalculator
                 'topics_awarded' => $awarded->pluck('topic')->map(fn (CoinRuleTopic $topic) => $topic->value)->values()->all(),
             ]);
         });
+    }
+
+    private function creditNothing(Review $review): ReviewReward
+    {
+        return ReviewReward::create([
+            'review_id' => $review->id,
+            'coins' => 0,
+            'points' => 0,
+            'xp' => 0,
+            'topics_awarded' => [],
+        ]);
     }
 }
