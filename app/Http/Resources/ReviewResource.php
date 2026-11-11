@@ -17,7 +17,7 @@ class ReviewResource extends JsonResource
         return [
             'id' => $this->id,
             'itemId' => $this->item_id,
-            'customerId' => $this->customer_id,
+            'customerId' => $this->hasAuthor() ? $this->customer_id : null,
             'deliveryRating' => $this->delivery_rating,
             'qualityRating' => $this->quality_rating,
             'conformityRating' => $this->conformity_rating,
@@ -34,7 +34,9 @@ class ReviewResource extends JsonResource
                 'aprovPoints' => $this->reward->points,
                 'xp' => $this->reward->xp,
             ]),
+            'versions' => ReviewVersionResource::collection($this->whenLoaded('versions')),
             'createdAt' => $this->created_at->toIso8601String(),
+            'editedAt' => $this->edited_at?->toIso8601String(),
         ];
     }
 }

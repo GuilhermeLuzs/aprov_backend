@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use App\Enums\ReviewMediaType;
 use App\Enums\UserRole;
 use App\Http\Requests\StoreReviewRequest;
+use App\Http\Requests\UpdateReviewRequest;
 use App\Http\Resources\ReviewResource;
 use App\Models\Review;
+use App\Models\ReviewMedia;
 use App\Services\ReviewRewardCalculator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response as Status;
 
 class ReviewController extends Controller
@@ -72,11 +75,104 @@ class ReviewController extends Controller
     {
         $reviews = Review::query()
             ->where('customer_id', $request->user()->customer->id)
-            ->with(['tags', 'media', 'reward'])
+            ->withAuthor()
+            ->with(['tags', 'media', 'reward', 'versions'])
             ->latest()
             ->get();
 
         return $this->sendResponse(ReviewResource::collection($reviews));
+    }
+
+    public function update(UpdateReviewRequest $request, Review $review): JsonResponse
+    {
+        if (! $this->isEditableBy($request, $review)) {
+            return $this->sendError('Avaliação não encontrada.', [], Status::HTTP_NOT_FOUND);
+        }
+
+        $ratings = [
+            $request->validated('deliveryRating'),
+            $request->validated('qualityRating'),
+            $request->validated('conformityRating'),
+            $request->validated('valueRating'),
+        ];
+
+        $keepMediaIds = array_map('intval', $request->validated('keepMediaIds') ?? []);
+        $newMedia = $request->file('media', []);
+
+        DB::transaction(function () use ($request, $review, $ratings, $keepMediaIds, $newMedia) {
+            $review->loadMissing(['tags', 'media']);
+
+            $review->versions()->create([
+                'delivery_rating' => $review->delivery_rating,
+                'quality_rating' => $review->quality_rating,
+                'conformity_rating' => $review->conformity_rating,
+                'value_rating' => $review->value_rating,
+                'average_rating' => $review->average_rating,
+                'comment' => $review->comment,
+                'would_buy_again' => $review->would_buy_again,
+                'tag_ids' => $review->tags->pluck('id')->values()->all(),
+                'published_at' => $review->edited_at ?? $review->created_at,
+            ]);
+
+            $review->update([
+                'delivery_rating' => $ratings[0],
+                'quality_rating' => $ratings[1],
+                'conformity_rating' => $ratings[2],
+                'value_rating' => $ratings[3],
+                'average_rating' => round(array_sum($ratings) / count($ratings), 1),
+                'comment' => $request->validated('comment'),
+                'would_buy_again' => $request->validated('wouldBuyAgain'),
+                'media_consent' => $request->validated('mediaConsent') ?? false,
+                'edited_at' => now(),
+            ]);
+
+            $review->tags()->sync($request->validated('tagIds'));
+
+            $isKept = fn (ReviewMedia $media) => in_array($media->id, $keepMediaIds, true);
+
+            $review->media->reject($isKept)->each(fn (ReviewMedia $media) => $this->deleteMedia($media));
+
+            $kept = $review->media->filter($isKept)->values();
+            foreach ($kept as $position => $media) {
+                $media->update(['position' => $position]);
+            }
+
+            foreach ($newMedia as $offset => $file) {
+                $this->storeMedia($review, $file, $kept->count() + $offset);
+            }
+        });
+
+        $review->unsetRelation('media');
+        $review->load(['tags', 'media', 'reward', 'versions']);
+
+        return $this->sendResponse(new ReviewResource($review), 'Avaliação editada.');
+    }
+
+    public function removeAuthor(Request $request, Review $review): JsonResponse
+    {
+        if (! $this->isEditableBy($request, $review)) {
+            return $this->sendError('Avaliação não encontrada.', [], Status::HTTP_NOT_FOUND);
+        }
+
+        DB::transaction(function () use ($review) {
+            $review->media->each(fn (ReviewMedia $media) => $this->deleteMedia($media));
+            $review->update(['author_removed_at' => now()]);
+        });
+
+        return $this->sendResponse(null, 'Seu nome saiu da avaliação.');
+    }
+
+    private function isEditableBy(Request $request, Review $review): bool
+    {
+        $customer = $request->user()->customer;
+
+        return $customer && $review->customer_id === $customer->id && $review->hasAuthor();
+    }
+
+    private function deleteMedia(ReviewMedia $media): void
+    {
+        Storage::disk('public')->delete($media->path);
+        $media->delete();
     }
 
     private function storeMedia(Review $review, UploadedFile $file, int $position): void

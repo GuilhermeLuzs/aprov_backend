@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -26,6 +27,8 @@ class Review extends Model
         'media_consent',
         'status',
         'moderated_by',
+        'edited_at',
+        'author_removed_at',
     ];
 
     protected function casts(): array
@@ -39,6 +42,8 @@ class Review extends Model
             'would_buy_again' => 'boolean',
             'media_consent' => 'boolean',
             'average_rating' => 'decimal:2',
+            'edited_at' => 'datetime',
+            'author_removed_at' => 'datetime',
         ];
     }
 
@@ -60,6 +65,30 @@ class Review extends Model
     public function media(): HasMany
     {
         return $this->hasMany(ReviewMedia::class)->orderBy('position');
+    }
+
+    public function versions(): HasMany
+    {
+        return $this->hasMany(ReviewVersion::class)->orderByDesc('published_at');
+    }
+
+    public function scopeWithAuthor(Builder $query): void
+    {
+        $query->whereNull('author_removed_at');
+    }
+
+    public static function customerReviewedBefore(int $customerId, int $itemId, ?int $exceptReviewId = null): bool
+    {
+        return static::withTrashed()
+            ->where('customer_id', $customerId)
+            ->where('item_id', $itemId)
+            ->when($exceptReviewId, fn (Builder $query) => $query->whereKeyNot($exceptReviewId))
+            ->exists();
+    }
+
+    public function hasAuthor(): bool
+    {
+        return $this->author_removed_at === null;
     }
 
     public function reward(): HasOne
