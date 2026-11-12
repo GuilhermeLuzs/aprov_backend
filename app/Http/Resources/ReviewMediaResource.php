@@ -15,6 +15,10 @@ class ReviewMediaResource extends JsonResource
             'id' => $this->id,
             'type' => $this->type,
             'url' => $this->url(),
+            'coverUrl' => $this->coverUrl(),
+            'width' => $this->width,
+            'height' => $this->height,
+            'durationSeconds' => $this->duration_seconds,
         ];
     }
 }

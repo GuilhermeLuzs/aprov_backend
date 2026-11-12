@@ -22,6 +22,7 @@ jobs:
             sudo chmod -R 775 storage bootstrap/cache
             php artisan migrate --force
             php artisan db:seed --class=TestAccountSeeder --force
+            php artisan db:seed --class=CatalogMediaSeeder --force
             php artisan storage:link
             php artisan config:cache
             php artisan route:cache

@@ -21,6 +21,8 @@ class ReviewVersionResource extends JsonResource
             'comment' => $this->comment,
             'wouldBuyAgain' => $this->would_buy_again,
             'tagIds' => $this->tag_ids,
+            'tags' => TagResource::collection($this->whenLoaded('tags')),
+            'media' => ReviewMediaResource::collection($this->whenLoaded('media')),
             'publishedAt' => $this->published_at->toIso8601String(),
         ];
     }

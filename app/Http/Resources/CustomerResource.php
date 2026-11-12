@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Customer;
+use App\Support\PublicFileUrl;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,6 +16,8 @@ class CustomerResource extends JsonResource
             'id' => $this->id,
             'name' => $this->user->name,
             'username' => $this->username,
+            'avatarUrl' => PublicFileUrl::of($this->user->avatar_path),
+            'bio' => $this->bio ?? '',
             'email' => $this->user->email,
             'birthDate' => $this->birth_date->toDateString(),
             'preferredCategories' => $this->preferred_categories,

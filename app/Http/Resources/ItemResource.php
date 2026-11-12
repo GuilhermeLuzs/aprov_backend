@@ -25,6 +25,10 @@ class ItemResource extends JsonResource
             'description' => $this->description,
             'averageRating' => round((float) ($this->reviews_avg_average_rating ?? 0), 1),
             'reviewCount' => (int) ($this->reviews_count ?? 0),
+            'media' => ItemMediaResource::collection($this->whenLoaded('media')),
+            'maxRewards' => $this->whenLoaded('company', fn () => $this->resource->maxRewards()),
+            'saved' => $this->whenHas('saved_by_viewer', fn ($saved) => (bool) $saved),
+            'purchased' => $this->whenHas('purchased_by_viewer', fn ($purchased) => (bool) $purchased),
         ];
     }
 }

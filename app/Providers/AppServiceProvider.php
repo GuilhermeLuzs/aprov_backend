@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Report;
+use App\Models\Review;
+use App\Models\ReviewComment;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Relation::morphMap([
+            Report::TARGET_REVIEW => Review::class,
+            Report::TARGET_COMMENT => ReviewComment::class,
+        ]);
     }
 }

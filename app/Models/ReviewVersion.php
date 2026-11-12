@@ -17,6 +17,7 @@ class ReviewVersion extends Model
         'comment',
         'would_buy_again',
         'tag_ids',
+        'media_ids',
         'published_at',
     ];
 
@@ -30,6 +31,7 @@ class ReviewVersion extends Model
             'average_rating' => 'decimal:2',
             'would_buy_again' => 'boolean',
             'tag_ids' => 'array',
+            'media_ids' => 'array',
             'published_at' => 'datetime',
         ];
     }

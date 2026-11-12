@@ -14,8 +14,10 @@ class WalletController extends Controller
 
         return $this->sendResponse([
             'aprovPoints' => $customer->points_balance,
+            'xp' => (int) $customer->xp,
+            'level' => (int) $customer->level,
             'coins' => CoinBalanceResource::collection(
-                $customer->coinBalances()->where('balance', '>', 0)->get()
+                $customer->coinBalances()->where('balance', '>', 0)->with('company.coin')->orderByDesc('balance')->get()
             ),
         ]);
     }
