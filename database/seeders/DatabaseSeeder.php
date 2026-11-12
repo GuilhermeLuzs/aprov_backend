@@ -15,5 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CompanySeeder::class);
         $this->call(CompanyCoinRuleSeeder::class);
         $this->call(CatalogSeeder::class);
+        $this->call(CatalogMediaSeeder::class);
+        $this->call(CommunitySeeder::class);
     }
 }

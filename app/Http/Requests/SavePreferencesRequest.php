@@ -15,7 +15,7 @@ class SavePreferencesRequest extends FormRequest
             'categories.*' => ['string', 'distinct', Rule::enum(Category::class)],
             'companyIds' => ['required', 'array', 'min:2'],
             'companyIds.*' => ['integer', 'distinct', Rule::exists('companies', 'id')],
-            'discoverySource' => ['required', Rule::enum(\App\Enums\DiscoverySource::class)],
+            'discoverySource' => ['sometimes', 'required', Rule::enum(\App\Enums\DiscoverySource::class)],
         ];
     }
 

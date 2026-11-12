@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ReactionType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,6 +14,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Review extends Model
 {
     use SoftDeletes;
+
+    public const STATUS_PUBLISHED = 'published';
+
+    public const CARD_RELATIONS = ['tags', 'media', 'customer.user', 'item.media', 'item.company.coin'];
 
     protected $fillable = [
         'customer_id',
@@ -64,12 +69,78 @@ class Review extends Model
 
     public function media(): HasMany
     {
-        return $this->hasMany(ReviewMedia::class)->orderBy('position');
+        return $this->hasMany(ReviewMedia::class)->whereNull('removed_at')->orderBy('position');
+    }
+
+    public function allMedia(): HasMany
+    {
+        return $this->hasMany(ReviewMedia::class);
+    }
+
+    public function loadHistory(): self
+    {
+        $this->load(['versions', 'allMedia']);
+
+        $tags = Tag::query()
+            ->whereIn('id', $this->versions->pluck('tag_ids')->flatten()->unique()->all())
+            ->get()
+            ->keyBy('id');
+
+        foreach ($this->versions as $version) {
+            $version->setRelation('tags', collect($version->tag_ids ?? [])->map(fn ($id) => $tags->get($id))->filter()->values());
+            $version->setRelation('media', collect($version->media_ids ?? [])->map(fn ($id) => $this->allMedia->firstWhere('id', $id))->filter()->values());
+        }
+
+        return $this;
     }
 
     public function versions(): HasMany
     {
         return $this->hasMany(ReviewVersion::class)->orderByDesc('published_at');
+    }
+
+    public function reactions(): HasMany
+    {
+        return $this->hasMany(ReviewReaction::class);
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(ReviewComment::class);
+    }
+
+    public function scopeWithEngagement(Builder $query): void
+    {
+        $query->withCount([
+            'reactions as agreements_count' => fn (Builder $q) => $q->where('type', ReactionType::Agree),
+            'reactions as disagreements_count' => fn (Builder $q) => $q->where('type', ReactionType::Disagree),
+            'comments as comments_count',
+        ]);
+    }
+
+    public function scopeForViewer(Builder $query, ?User $viewer): void
+    {
+        $query->select('reviews.*')->withEngagement();
+
+        if (! $viewer) {
+            return;
+        }
+
+        $query
+            ->addSelect(['viewer_vote' => ReviewReaction::query()
+                ->select('type')
+                ->whereColumn('review_id', 'reviews.id')
+                ->where('user_id', $viewer->id)
+                ->limit(1)])
+            ->whereNotIn('reviews.id', Report::query()
+                ->select('reportable_id')
+                ->where('reporter_id', $viewer->id)
+                ->where('reportable_type', Report::TARGET_REVIEW));
+    }
+
+    public function scopePublished(Builder $query): void
+    {
+        $query->where('status', self::STATUS_PUBLISHED);
     }
 
     public function scopeWithAuthor(Builder $query): void

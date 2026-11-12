@@ -18,6 +18,10 @@ class ReviewResource extends JsonResource
             'id' => $this->id,
             'itemId' => $this->item_id,
             'customerId' => $this->hasAuthor() ? $this->customer_id : null,
+            'author' => $this->whenLoaded('customer', fn () => $this->hasAuthor() && $this->customer
+                ? new ReviewAuthorResource($this->customer)
+                : null),
+            'item' => $this->whenLoaded('item', fn () => new ReviewItemResource($this->item)),
             'deliveryRating' => $this->delivery_rating,
             'qualityRating' => $this->quality_rating,
             'conformityRating' => $this->conformity_rating,
@@ -35,6 +39,11 @@ class ReviewResource extends JsonResource
                 'xp' => $this->reward->xp,
             ]),
             'versions' => ReviewVersionResource::collection($this->whenLoaded('versions')),
+            'agreements' => $this->whenHas('agreements_count', fn ($count) => (int) $count),
+            'disagreements' => $this->whenHas('disagreements_count', fn ($count) => (int) $count),
+            'commentCount' => $this->whenHas('comments_count', fn ($count) => (int) $count),
+            'myVote' => $this->whenHas('viewer_vote'),
+            'votesByVersion' => $this->whenHas('votes_by_version'),
             'createdAt' => $this->created_at->toIso8601String(),
             'editedAt' => $this->edited_at?->toIso8601String(),
         ];

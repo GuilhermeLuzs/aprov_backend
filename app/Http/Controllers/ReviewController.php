@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ReactionType;
 use App\Enums\ReviewMediaType;
 use App\Enums\UserRole;
 use App\Http\Requests\StoreReviewRequest;
@@ -63,7 +64,7 @@ class ReviewController extends Controller
             return $review;
         });
 
-        $review->load(['tags', 'media']);
+        $review->load(['tags', 'media', 'item']);
 
         $this->rewardCalculator->credit($review);
         $review->load('reward');
@@ -71,12 +72,54 @@ class ReviewController extends Controller
         return $this->sendResponse(new ReviewResource($review), 'Avaliação publicada.', Status::HTTP_CREATED);
     }
 
+    public function show(Request $request, int $review): JsonResponse
+    {
+        $viewer = $this->viewer($request);
+        $found = Review::query()
+            ->published()
+            ->forViewer($viewer)
+            ->with(Review::CARD_RELATIONS)
+            ->find($review)
+            ?->loadHistory();
+
+        if (! $found) {
+            return $this->sendError('Avaliação não encontrada.', [], Status::HTTP_NOT_FOUND);
+        }
+
+        if ($found->versions->isNotEmpty()) {
+            $found->setAttribute('votes_by_version', $this->votesByVersion($found));
+        }
+
+        return $this->sendResponse(new ReviewResource($found));
+    }
+
+    private function votesByVersion(Review $review): array
+    {
+        $starts = $review->versions
+            ->pluck('published_at')
+            ->sort()
+            ->values()
+            ->push($review->edited_at);
+
+        return $starts->map(function ($start, int $index) use ($review, $starts) {
+            $end = $starts->get($index + 1);
+            $inVersion = fn () => $review->reactions()
+                ->when($index > 0, fn ($q) => $q->where('updated_at', '>=', $start))
+                ->when($end, fn ($q) => $q->where('updated_at', '<', $end));
+
+            return [
+                'agreements' => $inVersion()->where('type', ReactionType::Agree)->count(),
+                'disagreements' => $inVersion()->where('type', ReactionType::Disagree)->count(),
+            ];
+        })->all();
+    }
+
     public function mine(Request $request): JsonResponse
     {
         $reviews = Review::query()
             ->where('customer_id', $request->user()->customer->id)
             ->withAuthor()
-            ->with(['tags', 'media', 'reward', 'versions'])
+            ->with(['tags', 'media', 'reward', 'versions', 'item'])
             ->latest()
             ->get();
 
@@ -111,6 +154,7 @@ class ReviewController extends Controller
                 'comment' => $review->comment,
                 'would_buy_again' => $review->would_buy_again,
                 'tag_ids' => $review->tags->pluck('id')->values()->all(),
+                'media_ids' => $review->media->pluck('id')->values()->all(),
                 'published_at' => $review->edited_at ?? $review->created_at,
             ]);
 
@@ -130,7 +174,7 @@ class ReviewController extends Controller
 
             $isKept = fn (ReviewMedia $media) => in_array($media->id, $keepMediaIds, true);
 
-            $review->media->reject($isKept)->each(fn (ReviewMedia $media) => $this->deleteMedia($media));
+            $review->media->reject($isKept)->each(fn (ReviewMedia $media) => $media->update(['removed_at' => now()]));
 
             $kept = $review->media->filter($isKept)->values();
             foreach ($kept as $position => $media) {
@@ -143,7 +187,7 @@ class ReviewController extends Controller
         });
 
         $review->unsetRelation('media');
-        $review->load(['tags', 'media', 'reward', 'versions']);
+        $review->load(['tags', 'media', 'reward', 'item'])->loadHistory();
 
         return $this->sendResponse(new ReviewResource($review), 'Avaliação editada.');
     }
@@ -155,7 +199,7 @@ class ReviewController extends Controller
         }
 
         DB::transaction(function () use ($review) {
-            $review->media->each(fn (ReviewMedia $media) => $this->deleteMedia($media));
+            $review->allMedia->each(fn (ReviewMedia $media) => $this->deleteMedia($media));
             $review->update(['author_removed_at' => now()]);
         });
 
@@ -171,7 +215,7 @@ class ReviewController extends Controller
 
     private function deleteMedia(ReviewMedia $media): void
     {
-        Storage::disk('public')->delete($media->path);
+        Storage::disk('public')->delete(array_filter([$media->path, $media->cover_path]));
         $media->delete();
     }
 

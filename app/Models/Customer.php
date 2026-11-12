@@ -46,6 +46,26 @@ class Customer extends Model
         return $this->hasMany(CustomerCoinBalance::class);
     }
 
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function followers(): BelongsToMany
+    {
+        return $this->belongsToMany(self::class, 'follows', 'followed_id', 'follower_id')->withTimestamps();
+    }
+
+    public function following(): BelongsToMany
+    {
+        return $this->belongsToMany(self::class, 'follows', 'follower_id', 'followed_id')->withTimestamps();
+    }
+
+    public function itemStates(): HasMany
+    {
+        return $this->hasMany(CustomerItemState::class);
+    }
+
     public function followedCompanies(): BelongsToMany
     {
         return $this->belongsToMany(Company::class)->withTimestamps();

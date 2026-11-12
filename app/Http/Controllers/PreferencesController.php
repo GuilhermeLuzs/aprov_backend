@@ -12,10 +12,10 @@ class PreferencesController extends Controller
     {
         $customer = $request->user()->customer;
 
-        $customer->update([
+        $customer->update(array_filter([
             'preferred_categories' => $request->validated('categories'),
             'discovery_source' => $request->validated('discoverySource'),
-        ]);
+        ], fn ($value) => $value !== null));
         $customer->followedCompanies()->sync($request->validated('companyIds'));
 
         return $this->sendResponse(new CustomerResource($customer), 'Preferências salvas.');

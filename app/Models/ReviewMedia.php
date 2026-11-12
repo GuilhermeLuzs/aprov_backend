@@ -13,12 +13,14 @@ class ReviewMedia extends Model
         'review_id',
         'type',
         'path',
+        'cover_path',
         'valid',
         'ai_labels',
         'width',
         'height',
         'duration_seconds',
         'position',
+        'removed_at',
     ];
 
     protected function casts(): array
@@ -27,6 +29,7 @@ class ReviewMedia extends Model
             'type' => ReviewMediaType::class,
             'valid' => 'boolean',
             'ai_labels' => 'array',
+            'removed_at' => 'datetime',
         ];
     }
 
@@ -38,5 +41,10 @@ class ReviewMedia extends Model
     public function url(): string
     {
         return Storage::disk('public')->url($this->path);
+    }
+
+    public function coverUrl(): ?string
+    {
+        return $this->cover_path ? Storage::disk('public')->url($this->cover_path) : null;
     }
 }

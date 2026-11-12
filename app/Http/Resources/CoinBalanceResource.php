@@ -14,6 +14,7 @@ class CoinBalanceResource extends JsonResource
         return [
             'companyId' => $this->company_id,
             'amount' => $this->balance,
+            'company' => $this->whenLoaded('company', fn () => new CompanySummaryResource($this->company)),
         ];
     }
 }

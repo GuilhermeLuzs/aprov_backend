@@ -1,0 +1,1504 @@
+{
+  "users": [
+    {
+      "key": "u1",
+      "name": "Mariana Albuquerque Cavalcanti de Menezes",
+      "username": "mari.cavalcanti",
+      "avatar_path": "avatars/avatar-5.jpeg",
+      "bio": "Reviso eletrônico antes de todo mundo. Se quebrou em uma semana, eu conto aqui.",
+      "level": 1,
+      "xp": 60,
+      "joined_at": "2026-10-01T10:00:00.000Z"
+    },
+    {
+      "key": "u2",
+      "name": "Téo",
+      "username": "teo",
+      "avatar_path": "avatars/avatar-12.jpeg",
+      "bio": "Cozinho todo dia.",
+      "level": 3,
+      "xp": 640,
+      "joined_at": "2025-07-02T18:30:00.000Z"
+    },
+    {
+      "key": "u3",
+      "name": "João Pedro Nogueira",
+      "username": "jpnogueira",
+      "avatar_path": "avatars/avatar-15.jpeg",
+      "bio": "Trabalho com climatização há 15 anos.",
+      "level": 8,
+      "xp": 4120,
+      "joined_at": "2025-03-11T08:15:00.000Z"
+    },
+    {
+      "key": "u4",
+      "name": "Larissa Fontes",
+      "username": "lari.fontes",
+      "avatar_path": "avatars/avatar-20.jpeg",
+      "bio": "Skincare sem enrolação.",
+      "level": 6,
+      "xp": 2890,
+      "joined_at": "2025-02-28T20:00:00.000Z"
+    },
+    {
+      "key": "u5",
+      "name": "Ricardo Szabó Vasconcellos",
+      "username": "ricardo.sv",
+      "avatar_path": "avatars/avatar-33.jpeg",
+      "bio": "Home office puro. Testo cadeira, monitor e café.",
+      "level": 9,
+      "xp": 5230,
+      "joined_at": "2025-01-25T11:30:00.000Z"
+    },
+    {
+      "key": "u6",
+      "name": "Ana",
+      "username": "ana",
+      "avatar_path": "avatars/avatar-45.jpeg",
+      "bio": "",
+      "level": 1,
+      "xp": 60,
+      "joined_at": "2025-08-25T09:00:00.000Z"
+    },
+    {
+      "key": "u7",
+      "name": "Fernanda Vasconcelos Rodrigues da Silva Sobrinho",
+      "username": "fernanda.vrss",
+      "avatar_path": "avatars/avatar-47.jpeg",
+      "bio": "Compro congelado artesanal toda semana e comparo tudo.",
+      "level": 7,
+      "xp": 3410,
+      "joined_at": "2025-03-05T15:20:00.000Z"
+    },
+    {
+      "key": "u8",
+      "name": "Bruno Kröpfl",
+      "username": "bkropfl",
+      "avatar_path": "avatars/avatar-51.jpeg",
+      "bio": "Gamer, mas exigente com garantia.",
+      "level": 5,
+      "xp": 2110,
+      "joined_at": "2025-04-30T22:00:00.000Z"
+    },
+    {
+      "key": "u9",
+      "name": "Camila Rocha",
+      "username": "camila.rocha",
+      "avatar_path": "avatars/avatar-48.jpeg",
+      "bio": "Maquiagem para pele madura.",
+      "level": 10,
+      "xp": 6740,
+      "joined_at": "2025-02-14T12:45:00.000Z"
+    },
+    {
+      "key": "u10",
+      "name": "Otávio Prado",
+      "username": "otavio.prado",
+      "avatar_path": "avatars/avatar-60.jpeg",
+      "bio": "Só apareço quando o serviço foi ruim.",
+      "level": 4,
+      "xp": 1520,
+      "joined_at": "2025-05-22T17:00:00.000Z"
+    }
+  ],
+  "follows": [
+    {
+      "follower": "u1",
+      "followed": "u2"
+    },
+    {
+      "follower": "u1",
+      "followed": "u4"
+    },
+    {
+      "follower": "u2",
+      "followed": "u1"
+    },
+    {
+      "follower": "u2",
+      "followed": "u3"
+    },
+    {
+      "follower": "u2",
+      "followed": "u4"
+    },
+    {
+      "follower": "u2",
+      "followed": "u9"
+    },
+    {
+      "follower": "u3",
+      "followed": "u4"
+    },
+    {
+      "follower": "u3",
+      "followed": "u7"
+    },
+    {
+      "follower": "u3",
+      "followed": "u9"
+    },
+    {
+      "follower": "u3",
+      "followed": "u10"
+    },
+    {
+      "follower": "u4",
+      "followed": "u3"
+    },
+    {
+      "follower": "u4",
+      "followed": "u5"
+    },
+    {
+      "follower": "u4",
+      "followed": "u7"
+    },
+    {
+      "follower": "u4",
+      "followed": "u9"
+    },
+    {
+      "follower": "u5",
+      "followed": "u4"
+    },
+    {
+      "follower": "u5",
+      "followed": "u9"
+    },
+    {
+      "follower": "u6",
+      "followed": "u1"
+    },
+    {
+      "follower": "u6",
+      "followed": "u2"
+    },
+    {
+      "follower": "u6",
+      "followed": "u4"
+    },
+    {
+      "follower": "u7",
+      "followed": "u3"
+    },
+    {
+      "follower": "u7",
+      "followed": "u4"
+    },
+    {
+      "follower": "u7",
+      "followed": "u9"
+    },
+    {
+      "follower": "u8",
+      "followed": "u4"
+    },
+    {
+      "follower": "u8",
+      "followed": "u5"
+    },
+    {
+      "follower": "u9",
+      "followed": "u3"
+    },
+    {
+      "follower": "u9",
+      "followed": "u4"
+    },
+    {
+      "follower": "u9",
+      "followed": "u7"
+    },
+    {
+      "follower": "u10",
+      "followed": "u4"
+    },
+    {
+      "follower": "u10",
+      "followed": "u9"
+    }
+  ],
+  "reviews": [
+    {
+      "key": "r01",
+      "item_id": 1,
+      "author": "u5",
+      "created_at": "2026-08-28T13:20:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 5,
+      "quality_rating": 5,
+      "conformity_rating": 5,
+      "value_rating": 4,
+      "comment": "Uso esse notebook há dois meses, oito horas por dia, entre planilhas pesadas, trinta abas no navegador e chamadas de vídeo o dia inteiro. A máquina não esquenta perto do que eu esperava, o ventilador só aparece quando exporto vídeo e mesmo assim é discreto. O SSD faz o sistema abrir em poucos segundos. O ponto fraco de verdade é a tela: o brilho máximo deixa a desejar perto da janela, e as cores são corretas mas sem vida. Para trabalho é irrelevante, para editar foto você vai querer um monitor externo. A bateria entrega umas seis horas reais com esse uso, longe das dez anunciadas, mas dá para passar meio expediente longe da tomada. Pelo preço que paguei, faria de novo sem pensar.",
+      "would_buy_again": true,
+      "tag_ids": [
+        1,
+        5,
+        10,
+        16
+      ],
+      "media": [
+        {
+          "type": "video",
+          "path": "reviews/video-10374892.mp4",
+          "cover_path": "reviews/video-10374892-cover.jpeg",
+          "width": 1080,
+          "height": 1920,
+          "duration_seconds": 9
+        },
+        {
+          "type": "photo",
+          "path": "reviews/photo-3747070.jpeg",
+          "width": 1080,
+          "height": 1080
+        },
+        {
+          "type": "photo",
+          "path": "reviews/photo-5793947.jpeg",
+          "width": 1080,
+          "height": 1080
+        }
+      ],
+      "versions": [],
+      "agree": [
+        "u1",
+        "u2",
+        "u3",
+        "u4",
+        "u6",
+        "u7",
+        "u8",
+        "u9",
+        "u10"
+      ],
+      "disagree": [],
+      "comments": [
+        {
+          "author": "u8",
+          "created_at": "2026-08-28T15:00:00.000Z",
+          "body": "A tela é isso mesmo. Liguei um monitor externo e o notebook virou outro.",
+          "agree": [
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7",
+            "u9",
+            "u10"
+          ],
+          "disagree": [],
+          "replies": [
+            {
+              "author": "u5",
+              "created_at": "2026-08-28T16:10:00.000Z",
+              "body": "Exato. Para quem edita foto, monitor externo não é luxo, é requisito.",
+              "agree": [
+                "u2",
+                "u3",
+                "u4"
+              ],
+              "disagree": [
+                "u6"
+              ]
+            },
+            {
+              "author": "u1",
+              "created_at": "2026-08-29T09:30:00.000Z",
+              "body": "Qual monitor você usou? Estou entre o de 27 da própria Acer e outro.",
+              "agree": [
+                "u4"
+              ],
+              "disagree": []
+            }
+          ]
+        },
+        {
+          "author": "u6",
+          "created_at": "2026-08-29T11:45:00.000Z",
+          "body": "Seis horas de bateria com esse uso já está ótimo, sinceramente.",
+          "agree": [
+            "u2",
+            "u3"
+          ],
+          "disagree": [
+            "u4"
+          ],
+          "replies": []
+        }
+      ]
+    },
+    {
+      "key": "r02",
+      "item_id": 1,
+      "author": "u8",
+      "created_at": "2026-07-14T18:05:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 4,
+      "quality_rating": 3,
+      "conformity_rating": 4,
+      "value_rating": 3,
+      "comment": "Roda os jogos que eu esperava no médio. O problema foi o suporte: um pixel morto e levei quase um mês para resolver. Chegou sem manual impresso, só o link.",
+      "would_buy_again": true,
+      "tag_ids": [
+        5,
+        7,
+        19,
+        21
+      ],
+      "media": [
+        {
+          "type": "photo",
+          "path": "reviews/photo-29249664.jpeg",
+          "width": 1080,
+          "height": 1080
+        }
+      ],
+      "versions": [],
+      "agree": [
+        "u2"
+      ],
+      "disagree": [
+        "u3"
+      ],
+      "comments": []
+    },
+    {
+      "key": "r03",
+      "item_id": 1,
+      "author": "u3",
+      "created_at": "2026-06-02T10:15:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 5,
+      "quality_rating": 5,
+      "conformity_rating": 5,
+      "value_rating": 4,
+      "comment": "Embalagem caprichada, três camadas de proteção. Liguei e em vinte minutos estava usando. Recomendo.",
+      "would_buy_again": true,
+      "tag_ids": [
+        1,
+        2,
+        8
+      ],
+      "media": [
+        {
+          "type": "photo",
+          "path": "reviews/photo-1128207.jpeg",
+          "width": 1080,
+          "height": 1080
+        },
+        {
+          "type": "photo",
+          "path": "reviews/photo-7739824.jpeg",
+          "width": 1080,
+          "height": 1080
+        },
+        {
+          "type": "photo",
+          "path": "reviews/photo-265101.jpeg",
+          "width": 1080,
+          "height": 1080
+        },
+        {
+          "type": "video",
+          "path": "reviews/video-853935.mp4",
+          "cover_path": "reviews/video-853935-cover.jpeg",
+          "width": 1080,
+          "height": 1920,
+          "duration_seconds": 12
+        }
+      ],
+      "versions": [],
+      "agree": [
+        "u4",
+        "u5"
+      ],
+      "disagree": [
+        "u6"
+      ],
+      "comments": []
+    },
+    {
+      "key": "r04",
+      "item_id": 1,
+      "author": "u6",
+      "created_at": "2026-05-19T21:40:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 2,
+      "quality_rating": 2,
+      "conformity_rating": 2,
+      "value_rating": 3,
+      "comment": "Anunciaram 16GB mas vieram 8GB soldados mais 8GB em pente. Tecnicamente bate, na prática trava com o meu uso. Decepcionada.",
+      "would_buy_again": false,
+      "tag_ids": [
+        11,
+        16,
+        18
+      ],
+      "media": [],
+      "versions": [],
+      "agree": [
+        "u4"
+      ],
+      "disagree": [
+        "u5"
+      ],
+      "comments": []
+    },
+    {
+      "key": "r05",
+      "item_id": 1,
+      "author": "u10",
+      "created_at": "2026-08-30T08:00:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 3,
+      "quality_rating": 4,
+      "conformity_rating": 3,
+      "value_rating": 3,
+      "comment": "Faz uma semana que estou com ele. Depois volto com uma avaliação completa.",
+      "would_buy_again": false,
+      "tag_ids": [
+        5,
+        21
+      ],
+      "media": [
+        {
+          "type": "photo",
+          "path": "reviews/photo-9300722.jpeg",
+          "width": 1080,
+          "height": 1080
+        }
+      ],
+      "versions": [],
+      "agree": [],
+      "disagree": [],
+      "comments": []
+    },
+    {
+      "key": "r06",
+      "item_id": 2,
+      "author": "u5",
+      "created_at": "2026-08-10T12:30:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 5,
+      "quality_rating": 5,
+      "conformity_rating": 4,
+      "value_rating": 5,
+      "comment": "Montagem no braço VESA em cinco minutos. Cores boas de fábrica, só ajustei o brilho.",
+      "would_buy_again": true,
+      "tag_ids": [
+        4,
+        5
+      ],
+      "media": [
+        {
+          "type": "video",
+          "path": "reviews/video-7047271.mp4",
+          "cover_path": "reviews/video-7047271-cover.jpeg",
+          "width": 1080,
+          "height": 1920,
+          "duration_seconds": 22
+        }
+      ],
+      "versions": [],
+      "agree": [
+        "u7",
+        "u8"
+      ],
+      "disagree": [
+        "u9"
+      ],
+      "comments": []
+    },
+    {
+      "key": "r07",
+      "item_id": 2,
+      "author": "u8",
+      "created_at": "2026-07-01T09:10:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 5,
+      "quality_rating": 5,
+      "conformity_rating": 4,
+      "value_rating": 5,
+      "comment": "A base é enorme e sem furo para passar cabo. Fora isso, sem defeito.",
+      "would_buy_again": true,
+      "tag_ids": [
+        3,
+        10
+      ],
+      "media": [
+        {
+          "type": "photo",
+          "path": "reviews/photo-17112932.jpeg",
+          "width": 1080,
+          "height": 1080
+        }
+      ],
+      "versions": [],
+      "agree": [
+        "u7"
+      ],
+      "disagree": [
+        "u9"
+      ],
+      "comments": []
+    },
+    {
+      "key": "r08",
+      "item_id": 2,
+      "author": "u2",
+      "created_at": "2026-04-22T16:00:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 4,
+      "quality_rating": 4,
+      "conformity_rating": 4,
+      "value_rating": 4,
+      "comment": "A caixa chegou amassada mas o monitor estava intacto. Funciona bem.",
+      "would_buy_again": true,
+      "tag_ids": [
+        5,
+        14
+      ],
+      "media": [],
+      "versions": [],
+      "agree": [
+        "u9"
+      ],
+      "disagree": [
+        "u10"
+      ],
+      "comments": []
+    },
+    {
+      "key": "r09",
+      "item_id": 3,
+      "author": "u10",
+      "created_at": "2026-06-18T22:15:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 3,
+      "quality_rating": 2,
+      "conformity_rating": 3,
+      "value_rating": 2,
+      "comment": "Os 4000 lúmens do anúncio não existem na prática. Com qualquer luz acesa a imagem some. Para cinema em quarto escuro, ok. Para sala, não.",
+      "would_buy_again": false,
+      "tag_ids": [
+        1,
+        16,
+        21
+      ],
+      "media": [],
+      "versions": [],
+      "agree": [
+        "u9"
+      ],
+      "disagree": [
+        "u1"
+      ],
+      "comments": []
+    },
+    {
+      "key": "r10",
+      "item_id": 3,
+      "author": "u8",
+      "created_at": "2026-03-30T20:00:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 4,
+      "quality_rating": 3,
+      "conformity_rating": 4,
+      "value_rating": 3,
+      "comment": "A cada duas horas de uso preciso reajustar o foco. Incomoda.",
+      "would_buy_again": true,
+      "tag_ids": [
+        10,
+        15
+      ],
+      "media": [
+        {
+          "type": "photo",
+          "path": "reviews/photo-6062806.jpeg",
+          "width": 1080,
+          "height": 1080
+        }
+      ],
+      "versions": [],
+      "agree": [
+        "u1"
+      ],
+      "disagree": [
+        "u2"
+      ],
+      "comments": []
+    },
+    {
+      "key": "r11",
+      "item_id": 4,
+      "author": "u1",
+      "created_at": "2026-08-05T07:45:00.000Z",
+      "edited_at": "2026-08-06T10:00:00.000Z",
+      "delivery_rating": 4,
+      "quality_rating": 5,
+      "conformity_rating": 4,
+      "value_rating": 4,
+      "comment": "Acordei sem o nariz entupido pela primeira vez em meses. O modo noturno é realmente silencioso. O app poderia mostrar o histórico, hoje só mostra o número do momento.",
+      "would_buy_again": true,
+      "tag_ids": [
+        5,
+        10,
+        19
+      ],
+      "media": [
+        {
+          "type": "photo",
+          "path": "reviews/photo-36665794.jpeg",
+          "width": 1080,
+          "height": 1080
+        }
+      ],
+      "versions": [
+        {
+          "delivery_rating": 4,
+          "quality_rating": 4,
+          "conformity_rating": 3,
+          "value_rating": 4,
+          "comment": "Acordei sem o nariz entupido pela primeira vez em meses. O app poderia mostrar o histórico, hoje só mostra o número do momento.",
+          "published_at": "2026-08-05T07:45:00.000Z"
+        }
+      ],
+      "agree": [
+        "u3"
+      ],
+      "disagree": [
+        "u4"
+      ],
+      "comments": [
+        {
+          "author": "u4",
+          "created_at": "2026-08-05T12:00:00.000Z",
+          "body": "O filtro de reposição é caro? É o que me segura.",
+          "agree": [
+            "u2"
+          ],
+          "disagree": [],
+          "replies": [
+            {
+              "author": "u1",
+              "created_at": "2026-08-05T13:30:00.000Z",
+              "body": "Uns 20% do valor do aparelho a cada seis meses. Não é barato, mas dura.",
+              "agree": [
+                "u4"
+              ],
+              "disagree": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "r12",
+      "item_id": 6,
+      "author": "u7",
+      "created_at": "2026-08-25T19:30:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 5,
+      "quality_rating": 5,
+      "conformity_rating": 5,
+      "value_rating": 4,
+      "comment": "Comprei achando que seria mais uma. Errei. A massa fica al dente mesmo depois do forno, o molho tem sabor de domingo na casa da avó. Serviu três pessoas com fome. Voltou pra lista fixa da semana.",
+      "would_buy_again": true,
+      "tag_ids": [
+        2,
+        6,
+        12
+      ],
+      "media": [
+        {
+          "type": "photo",
+          "path": "reviews/photo-33312938.jpeg",
+          "width": 1080,
+          "height": 1080
+        },
+        {
+          "type": "photo",
+          "path": "reviews/photo-5949895.jpeg",
+          "width": 1080,
+          "height": 1080
+        },
+        {
+          "type": "photo",
+          "path": "reviews/photo-5949901.jpeg",
+          "width": 1080,
+          "height": 1080
+        },
+        {
+          "type": "photo",
+          "path": "reviews/photo-31119102.jpeg",
+          "width": 1080,
+          "height": 1080
+        },
+        {
+          "type": "video",
+          "path": "reviews/video-6162079.mp4",
+          "cover_path": "reviews/video-6162079-cover.jpeg",
+          "width": 1080,
+          "height": 1920,
+          "duration_seconds": 12
+        }
+      ],
+      "versions": [],
+      "agree": [
+        "u3"
+      ],
+      "disagree": [
+        "u4"
+      ],
+      "comments": [
+        {
+          "author": "u2",
+          "created_at": "2026-08-25T21:00:00.000Z",
+          "body": "Assino embaixo. A de quatro queijos é tão boa quanto.",
+          "agree": [
+            "u4",
+            "u5",
+            "u6",
+            "u7",
+            "u8"
+          ],
+          "disagree": [
+            "u9"
+          ],
+          "replies": [
+            {
+              "author": "u7",
+              "created_at": "2026-08-26T08:15:00.000Z",
+              "body": "Vou pedir essa no próximo. Obrigada pela dica.",
+              "agree": [
+                "u4"
+              ],
+              "disagree": []
+            }
+          ]
+        },
+        {
+          "author": "u9",
+          "created_at": "2026-08-26T10:20:00.000Z",
+          "body": "O tempo de forno bate com o da embalagem ou precisa de mais?",
+          "agree": [
+            "u4"
+          ],
+          "disagree": [],
+          "replies": [
+            {
+              "author": "u7",
+              "created_at": "2026-08-26T11:00:00.000Z",
+              "body": "Precisei de uns dez minutos a mais que o rótulo, forno de casa é sempre mais fraco.",
+              "agree": [
+                "u5",
+                "u6"
+              ],
+              "disagree": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "r13",
+      "item_id": 6,
+      "author": "u2",
+      "created_at": "2026-07-08T18:00:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 5,
+      "quality_rating": 5,
+      "conformity_rating": 5,
+      "value_rating": 4,
+      "comment": "Chegou totalmente congelada, gelo seco na caixa. Sabor impecável.",
+      "would_buy_again": true,
+      "tag_ids": [
+        1,
+        6
+      ],
+      "media": [
+        {
+          "type": "photo",
+          "path": "reviews/photo-18273993.jpeg",
+          "width": 1080,
+          "height": 1080
+        }
+      ],
+      "versions": [],
+      "agree": [
+        "u5"
+      ],
+      "disagree": [
+        "u6"
+      ],
+      "comments": []
+    },
+    {
+      "key": "r14",
+      "item_id": 6,
+      "author": "u4",
+      "created_at": "2026-05-27T20:45:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 3,
+      "quality_rating": 4,
+      "conformity_rating": 4,
+      "value_rating": 3,
+      "comment": "O entregador claramente virou a caixa. As camadas desmontaram. O gosto salvou, por isso três estrelas e não menos.",
+      "would_buy_again": true,
+      "tag_ids": [
+        6,
+        14,
+        17
+      ],
+      "media": [
+        {
+          "type": "video",
+          "path": "reviews/video-11487648.mp4",
+          "cover_path": "reviews/video-11487648-cover.jpeg",
+          "width": 1080,
+          "height": 1920,
+          "duration_seconds": 7
+        }
+      ],
+      "versions": [],
+      "agree": [
+        "u6"
+      ],
+      "disagree": [
+        "u7"
+      ],
+      "comments": []
+    },
+    {
+      "key": "r15",
+      "item_id": 7,
+      "author": "u7",
+      "created_at": "2026-08-19T15:10:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 5,
+      "quality_rating": 5,
+      "conformity_rating": 5,
+      "value_rating": 5,
+      "comment": "Encomendei para uma reunião e todo mundo pediu o contato. Rende bem para o preço.",
+      "would_buy_again": true,
+      "tag_ids": [
+        4,
+        6,
+        12
+      ],
+      "media": [
+        {
+          "type": "photo",
+          "path": "reviews/photo-33158039.jpeg",
+          "width": 1080,
+          "height": 1080
+        }
+      ],
+      "versions": [],
+      "agree": [
+        "u6"
+      ],
+      "disagree": [
+        "u8"
+      ],
+      "comments": []
+    },
+    {
+      "key": "r16",
+      "item_id": 7,
+      "author": "u9",
+      "created_at": "2026-06-11T13:00:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 5,
+      "quality_rating": 5,
+      "conformity_rating": 4,
+      "value_rating": 3,
+      "comment": "",
+      "would_buy_again": true,
+      "tag_ids": [
+        6,
+        21
+      ],
+      "media": [],
+      "versions": [],
+      "agree": [
+        "u7"
+      ],
+      "disagree": [
+        "u8"
+      ],
+      "comments": []
+    },
+    {
+      "key": "r17",
+      "item_id": 8,
+      "author": "u7",
+      "created_at": "2026-08-02T08:30:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 5,
+      "quality_rating": 5,
+      "conformity_rating": 4,
+      "value_rating": 4,
+      "comment": "Assei direto do congelador, vinte minutos, saiu perfeito. O queijo canastra faz diferença.",
+      "would_buy_again": true,
+      "tag_ids": [
+        2,
+        6
+      ],
+      "media": [
+        {
+          "type": "photo",
+          "path": "reviews/photo-38598140.jpeg",
+          "width": 1080,
+          "height": 1080
+        },
+        {
+          "type": "photo",
+          "path": "reviews/photo-20450299.jpeg",
+          "width": 1080,
+          "height": 1080
+        }
+      ],
+      "versions": [],
+      "agree": [
+        "u9"
+      ],
+      "disagree": [
+        "u10"
+      ],
+      "comments": []
+    },
+    {
+      "key": "r19",
+      "item_id": 9,
+      "author": "u4",
+      "created_at": "2026-07-21T11:50:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 4,
+      "quality_rating": 3,
+      "conformity_rating": 4,
+      "value_rating": 4,
+      "comment": "A porção é honesta e o preço fecha. O frango, se você seguir o tempo da embalagem, vira borracha. Tiro um minuto antes e fica ok.",
+      "would_buy_again": true,
+      "tag_ids": [
+        1,
+        10,
+        16
+      ],
+      "media": [
+        {
+          "type": "video",
+          "path": "reviews/video-6894121.mp4",
+          "cover_path": "reviews/video-6894121-cover.jpeg",
+          "width": 1080,
+          "height": 1920,
+          "duration_seconds": 8
+        }
+      ],
+      "versions": [],
+      "agree": [
+        "u10"
+      ],
+      "disagree": [
+        "u1"
+      ],
+      "comments": []
+    },
+    {
+      "key": "r20",
+      "item_id": 10,
+      "author": "u7",
+      "created_at": "2026-06-28T19:15:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 5,
+      "quality_rating": 5,
+      "conformity_rating": 5,
+      "value_rating": 5,
+      "comment": "Não é aquele caldo ralo. A couve vem cortada fininha, a batata desmancha na medida.",
+      "would_buy_again": true,
+      "tag_ids": [
+        6,
+        10
+      ],
+      "media": [
+        {
+          "type": "photo",
+          "path": "reviews/photo-5175533.jpeg",
+          "width": 1080,
+          "height": 1080
+        }
+      ],
+      "versions": [],
+      "agree": [
+        "u1"
+      ],
+      "disagree": [
+        "u2"
+      ],
+      "comments": []
+    },
+    {
+      "key": "r21",
+      "item_id": 11,
+      "author": "u4",
+      "created_at": "2026-08-22T07:00:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 5,
+      "quality_rating": 5,
+      "conformity_rating": 4,
+      "value_rating": 4,
+      "comment": "Fiz foto no primeiro dia e no trigésimo, mesma luz. A diferença nas manchas é sutil mas existe. O que mudou mesmo foi o viço e o tamanho dos poros. Absorve rápido, não gruda. Só acho caro.",
+      "would_buy_again": true,
+      "tag_ids": [
+        4,
+        5,
+        12,
+        21
+      ],
+      "media": [
+        {
+          "type": "photo",
+          "path": "reviews/photo-4119559.jpeg",
+          "width": 1080,
+          "height": 1080
+        },
+        {
+          "type": "video",
+          "path": "reviews/video-6801666.mp4",
+          "cover_path": "reviews/video-6801666-cover.jpeg",
+          "width": 1080,
+          "height": 1920,
+          "duration_seconds": 9
+        }
+      ],
+      "versions": [],
+      "agree": [
+        "u2",
+        "u3"
+      ],
+      "disagree": [
+        "u5"
+      ],
+      "comments": [
+        {
+          "author": "u9",
+          "created_at": "2026-08-22T09:40:00.000Z",
+          "body": "Ardeu na sua pele nos primeiros dias? A vitamina C a 15% costuma incomodar.",
+          "agree": [
+            "u2",
+            "u3",
+            "u4",
+            "u5"
+          ],
+          "disagree": [
+            "u6"
+          ],
+          "replies": [
+            {
+              "author": "u4",
+              "created_at": "2026-08-22T10:15:00.000Z",
+              "body": "Os dois primeiros dias sim, um leve formigamento. Depois o rosto se acostumou.",
+              "agree": [
+                "u3",
+                "u5"
+              ],
+              "disagree": [
+                "u6"
+              ]
+            },
+            {
+              "author": "u6",
+              "created_at": "2026-08-23T08:00:00.000Z",
+              "body": "Na minha ardeu demais, tive que intercalar dia sim, dia não.",
+              "agree": [
+                "u4"
+              ],
+              "disagree": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "r22",
+      "item_id": 11,
+      "author": "u9",
+      "created_at": "2026-07-30T06:30:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 5,
+      "quality_rating": 4,
+      "conformity_rating": 4,
+      "value_rating": 5,
+      "comment": "Trinta mililitros duraram dois meses e meio com uso diário. Faz o trabalho.",
+      "would_buy_again": true,
+      "tag_ids": [
+        5,
+        11
+      ],
+      "media": [
+        {
+          "type": "video",
+          "path": "reviews/video-8131891.mp4",
+          "cover_path": "reviews/video-8131891-cover.jpeg",
+          "width": 1080,
+          "height": 1920,
+          "duration_seconds": 26
+        }
+      ],
+      "versions": [],
+      "agree": [
+        "u3"
+      ],
+      "disagree": [
+        "u4"
+      ],
+      "comments": []
+    },
+    {
+      "key": "r23",
+      "item_id": 11,
+      "author": "u6",
+      "created_at": "2026-05-14T22:10:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 4,
+      "quality_rating": 3,
+      "conformity_rating": 3,
+      "value_rating": 3,
+      "comment": "Usei o frasco inteiro esperando alguma mudança nas manchas. Nada que eu conseguisse fotografar. Para hidratação leve, serve. Para clareamento, não senti.",
+      "would_buy_again": false,
+      "tag_ids": [
+        5,
+        21
+      ],
+      "media": [],
+      "versions": [],
+      "agree": [
+        "u4"
+      ],
+      "disagree": [
+        "u5"
+      ],
+      "comments": []
+    },
+    {
+      "key": "r24",
+      "item_id": 12,
+      "author": "u9",
+      "created_at": "2026-07-05T14:25:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 4,
+      "quality_rating": 4,
+      "conformity_rating": 4,
+      "value_rating": 4,
+      "comment": "A cor no braço é linda, na boca puxa mais pro marrom. Passa no teste do café, mas repuxa.",
+      "would_buy_again": true,
+      "tag_ids": [
+        5,
+        16
+      ],
+      "media": [
+        {
+          "type": "photo",
+          "path": "reviews/photo-6648498.jpeg",
+          "width": 1080,
+          "height": 1080
+        }
+      ],
+      "versions": [],
+      "agree": [
+        "u5"
+      ],
+      "disagree": [
+        "u6"
+      ],
+      "comments": []
+    },
+    {
+      "key": "r25",
+      "item_id": 12,
+      "author": "u4",
+      "created_at": "2026-04-02T16:40:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 3,
+      "quality_rating": 2,
+      "conformity_rating": 3,
+      "value_rating": 3,
+      "comment": "Pedi o Terracota esperando o tijolo da foto. Veio um bordô. Pode ser lote, pode ser tela, mas não foi o que comprei.",
+      "would_buy_again": false,
+      "tag_ids": [
+        10,
+        16
+      ],
+      "media": [],
+      "versions": [],
+      "agree": [
+        "u7"
+      ],
+      "disagree": [
+        "u8"
+      ],
+      "comments": []
+    },
+    {
+      "key": "r26",
+      "item_id": 13,
+      "author": "u9",
+      "created_at": "2026-08-16T21:30:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 5,
+      "quality_rating": 5,
+      "conformity_rating": 5,
+      "value_rating": 5,
+      "comment": "Os três passos conversam entre si, sem aquela sensação de repuxar. O folheto explica a ordem e a frequência do ácido, que é onde a maioria erra. Minha pele nunca esteve tão calma.",
+      "would_buy_again": true,
+      "tag_ids": [
+        7,
+        8,
+        12
+      ],
+      "media": [
+        {
+          "type": "video",
+          "path": "reviews/video-12322654.mp4",
+          "cover_path": "reviews/video-12322654-cover.jpeg",
+          "width": 1080,
+          "height": 1920,
+          "duration_seconds": 10
+        },
+        {
+          "type": "photo",
+          "path": "reviews/photo-3736398.jpeg",
+          "width": 1080,
+          "height": 1080
+        },
+        {
+          "type": "photo",
+          "path": "reviews/photo-7691161.jpeg",
+          "width": 1080,
+          "height": 1080
+        }
+      ],
+      "versions": [],
+      "agree": [
+        "u7"
+      ],
+      "disagree": [
+        "u8"
+      ],
+      "comments": []
+    },
+    {
+      "key": "r27",
+      "item_id": 14,
+      "author": "u8",
+      "created_at": "2026-08-29T18:50:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 2,
+      "quality_rating": 1,
+      "conformity_rating": 2,
+      "value_rating": 2,
+      "comment": "Acetato bonito, lente boa, mas a dobradiça soltou com uma semana de uso normal, guardando no estojo. Aguardando a troca.",
+      "would_buy_again": false,
+      "tag_ids": [
+        4,
+        15,
+        21
+      ],
+      "media": [
+        {
+          "type": "photo",
+          "path": "reviews/photo-10837797.jpeg",
+          "width": 1080,
+          "height": 1080
+        }
+      ],
+      "versions": [],
+      "agree": [],
+      "disagree": [],
+      "comments": []
+    },
+    {
+      "key": "r28",
+      "item_id": 15,
+      "author": "u4",
+      "created_at": "2026-06-22T10:05:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 5,
+      "quality_rating": 4,
+      "conformity_rating": 5,
+      "value_rating": 4,
+      "comment": "As aulas de preparo de pele e de correção sozinhas já pagam o curso. A parte de olho esfumado é rápida demais, senti falta de mais exemplos em peles diferentes. Acesso por um ano ajuda a revisar.",
+      "would_buy_again": true,
+      "tag_ids": [
+        8,
+        10,
+        21
+      ],
+      "media": [],
+      "versions": [],
+      "agree": [
+        "u10"
+      ],
+      "disagree": [
+        "u1"
+      ],
+      "comments": []
+    },
+    {
+      "key": "r29",
+      "item_id": 17,
+      "author": "u10",
+      "created_at": "2026-07-18T13:35:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 3,
+      "quality_rating": 3,
+      "conformity_rating": 2,
+      "value_rating": 2,
+      "comment": "O técnico chegou no horário e o serviço em si foi ok. Na hora de pagar apareceu uma taxa de deslocamento de bairro que ninguém tinha mencionado. Fica a ressalva.",
+      "would_buy_again": false,
+      "tag_ids": [
+        9,
+        22
+      ],
+      "media": [
+        {
+          "type": "photo",
+          "path": "reviews/photo-5463575.jpeg",
+          "width": 1080,
+          "height": 1080
+        }
+      ],
+      "versions": [],
+      "agree": [
+        "u1"
+      ],
+      "disagree": [
+        "u2",
+        "u3",
+        "u4"
+      ],
+      "comments": []
+    },
+    {
+      "key": "r30",
+      "item_id": 16,
+      "author": "u3",
+      "created_at": "2026-08-12T09:00:00.000Z",
+      "edited_at": null,
+      "delivery_rating": 3,
+      "quality_rating": 2,
+      "conformity_rating": 2,
+      "value_rating": 3,
+      "comment": "Trabalho com isso, então percebi na hora que o tempo de vácuo foi curto demais. Sete dias depois o aparelho estava gelando pouco, chamei outra empresa e havia perda de gás na conexão. Tive retrabalho e custo dobrado.",
+      "would_buy_again": false,
+      "tag_ids": [
+        9,
+        20,
+        22
+      ],
+      "media": [
+        {
+          "type": "video",
+          "path": "reviews/video-7614406.mp4",
+          "cover_path": "reviews/video-7614406-cover.jpeg",
+          "width": 1080,
+          "height": 1920,
+          "duration_seconds": 13
+        }
+      ],
+      "versions": [],
+      "agree": [
+        "u2"
+      ],
+      "disagree": [
+        "u4"
+      ],
+      "comments": [
+        {
+          "author": "u10",
+          "created_at": "2026-08-12T14:20:00.000Z",
+          "body": "Passei pelo mesmo. Vácuo de dez minutos não existe, são quarenta no mínimo.",
+          "agree": [
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7"
+          ],
+          "disagree": [
+            "u8"
+          ],
+          "replies": [
+            {
+              "author": "u3",
+              "created_at": "2026-08-12T15:00:00.000Z",
+              "body": "Isso. E tem que medir com o vacuômetro, não no olho.",
+              "agree": [
+                "u4",
+                "u5",
+                "u6"
+              ],
+              "disagree": [
+                "u7"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "test_account_items": [
+    {
+      "item_id": 1,
+      "type": "purchased"
+    },
+    {
+      "item_id": 2,
+      "type": "saved"
+    },
+    {
+      "item_id": 4,
+      "type": "purchased"
+    },
+    {
+      "item_id": 6,
+      "type": "purchased"
+    },
+    {
+      "item_id": 7,
+      "type": "saved"
+    },
+    {
+      "item_id": 8,
+      "type": "purchased"
+    },
+    {
+      "item_id": 11,
+      "type": "purchased"
+    },
+    {
+      "item_id": 17,
+      "type": "purchased"
+    },
+    {
+      "item_id": 21,
+      "type": "purchased"
+    },
+    {
+      "item_id": 25,
+      "type": "saved"
+    },
+    {
+      "item_id": 25,
+      "type": "purchased"
+    },
+    {
+      "item_id": 31,
+      "type": "purchased"
+    }
+  ]
+}
