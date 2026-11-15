@@ -14,6 +14,7 @@ class CoinBalanceResource extends JsonResource
         return [
             'companyId' => $this->company_id,
             'amount' => $this->balance,
+            'couponCount' => (int) ($this->available_coupons_count ?? 0),
             'company' => $this->whenLoaded('company', fn () => new CompanySummaryResource($this->company)),
         ];
     }
