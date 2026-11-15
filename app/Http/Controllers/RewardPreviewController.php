@@ -24,7 +24,7 @@ class RewardPreviewController extends Controller
             ]);
         }
 
-        $item->loadMissing('company.coinRuleTopics');
+        $item->loadMissing(['company.coin', 'company.coinRuleTopics']);
 
         $facts = new CoinRuleTopicFacts(
             completed: $request->validated('draft.completed'),
@@ -35,7 +35,7 @@ class RewardPreviewController extends Controller
             coherentComment: false,
         );
 
-        $topics = $item->company?->coinRuleTopics ?? collect();
+        $topics = $item->rewardTopics();
         $statuses = $topics->map(fn ($topic) => new CoinRuleTopicStatusResource($topic, $facts));
 
         $satisfied = $topics->filter(fn ($topic) => CoinRuleTopicEvaluator::satisfies($topic->topic, $topic->threshold, $facts));

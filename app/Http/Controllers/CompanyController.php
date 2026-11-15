@@ -51,7 +51,7 @@ class CompanyController extends Controller
             }))
             ->with([
                 'media' => fn ($media) => $media->where('type', ReviewMediaType::Photo),
-                'company.coinRuleTopics',
+                'company.coin', 'company.coinRuleTopics',
             ])
             ->withCount('reviews')
             ->withAvg('reviews', 'average_rating')

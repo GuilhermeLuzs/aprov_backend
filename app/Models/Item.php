@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\CoinRuleTopic;
 use App\Enums\ItemKind;
 use App\Enums\ItemState;
 use App\Enums\ReviewMediaType;
@@ -14,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 
 class Item extends Model
 {
@@ -87,10 +87,19 @@ class Item extends Model
         ]);
     }
 
+    public function rewardTopics(): Collection
+    {
+        $coinsEnabled = (bool) $this->company?->coin?->is_enabled;
+
+        return ($this->company?->coinRuleTopics ?? collect())
+            ->filter(fn ($topic) => $topic->kind === $this->kind && $topic->topic->isPayable())
+            ->map(fn ($topic) => $coinsEnabled ? $topic : tap(clone $topic, fn ($withoutCoins) => $withoutCoins->coins = 0))
+            ->values();
+    }
+
     public function maxRewards(): array
     {
-        $topics = ($this->company?->coinRuleTopics ?? collect())
-            ->reject(fn ($topic) => $this->kind === ItemKind::Service && $topic->topic === CoinRuleTopic::SentVideo);
+        $topics = $this->rewardTopics();
 
         return [
             'coins' => (int) $topics->sum('coins'),

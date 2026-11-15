@@ -15,6 +15,8 @@ use Illuminate\Support\Str;
 
 class CompanySeeder extends Seeder
 {
+    private const COIN_VALUE_IN_REAIS = 0.05;
+
     public function run(): void
     {
         $companies = require database_path('data/companies_seed.php');
@@ -56,6 +58,7 @@ class CompanySeeder extends Seeder
                 'name' => $data['coin_name'],
                 'color' => $data['coin_color'],
                 'icon' => $data['coin_icon'],
+                'real_value_rate' => self::COIN_VALUE_IN_REAIS,
             ]);
         }
     }

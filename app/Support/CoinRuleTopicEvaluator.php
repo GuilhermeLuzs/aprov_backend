@@ -15,6 +15,7 @@ class CoinRuleTopicEvaluator
             CoinRuleTopic::MinValidPhotos => $facts->photoCount >= ($threshold ?? 1),
             CoinRuleTopic::MinCommentLength => $facts->commentLength >= ($threshold ?? 0),
             CoinRuleTopic::CoherentComment => $facts->coherentComment,
+            CoinRuleTopic::PhotoInUse => false,
         };
     }
 }

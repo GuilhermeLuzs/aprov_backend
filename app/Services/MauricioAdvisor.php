@@ -51,9 +51,9 @@ class MauricioAdvisor
 
     private function rewardInstructions(Item $item, CoinRuleTopicFacts $facts): string
     {
-        $item->loadMissing('company.coinRuleTopics');
+        $item->loadMissing(['company.coin', 'company.coinRuleTopics']);
 
-        $topics = $item->company?->coinRuleTopics ?? collect();
+        $topics = $item->rewardTopics();
 
         $missing = $topics
             ->reject(fn ($topic) => CoinRuleTopicEvaluator::satisfies($topic->topic, $topic->threshold, $facts))

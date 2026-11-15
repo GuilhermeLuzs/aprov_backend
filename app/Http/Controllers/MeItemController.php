@@ -31,7 +31,7 @@ class MeItemController extends Controller
             ->forViewer($customer)
             ->with([
                 'media' => fn ($media) => $media->where('type', ReviewMediaType::Photo),
-                'company.coinRuleTopics',
+                'company.coin', 'company.coinRuleTopics',
             ])
             ->withCount('reviews')
             ->withAvg('reviews', 'average_rating')
