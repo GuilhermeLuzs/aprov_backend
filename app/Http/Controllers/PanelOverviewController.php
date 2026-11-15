@@ -37,6 +37,7 @@ class PanelOverviewController extends Controller
         }
 
         return $this->sendResponse([
+            'totalReviews' => Review::query()->published()->whereIn('item_id', $items->modelKeys())->count(),
             'catalog' => [
                 'total' => $items->count(),
                 'products' => $items->where('kind', ItemKind::Product)->count(),
