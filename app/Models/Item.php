@@ -89,8 +89,11 @@ class Item extends Model
 
     public function rewardTopics(): Collection
     {
+        $coinsEnabled = (bool) $this->company?->coin?->is_enabled;
+
         return ($this->company?->coinRuleTopics ?? collect())
             ->filter(fn ($topic) => $topic->kind === $this->kind && $topic->topic->isPayable())
+            ->map(fn ($topic) => $coinsEnabled ? $topic : tap(clone $topic, fn ($withoutCoins) => $withoutCoins->coins = 0))
             ->values();
     }
 

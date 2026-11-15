@@ -11,6 +11,7 @@ use App\Http\Controllers\ItemReviewController;
 use App\Http\Controllers\MauricioChatController;
 use App\Http\Controllers\MeItemController;
 use App\Http\Controllers\PanelAuthController;
+use App\Http\Controllers\PanelCoinController;
 use App\Http\Controllers\PanelItemController;
 use App\Http\Controllers\PanelItemMediaController;
 use App\Http\Controllers\PreferencesController;
@@ -44,6 +45,10 @@ Route::middleware(['auth:sanctum', 'role:company', 'throttle:api'])->prefix('pan
     Route::patch('items/{panelItem}/status', [PanelItemController::class, 'status']);
     Route::get('items/{panelItem}/metrics', [PanelItemController::class, 'metrics']);
     Route::post('item-media', [PanelItemMediaController::class, 'store'])->middleware('throttle:uploads');
+    Route::get('coin', [PanelCoinController::class, 'show']);
+    Route::put('coin', [PanelCoinController::class, 'update']);
+    Route::patch('coin/status', [PanelCoinController::class, 'status']);
+    Route::get('coin/performance', [PanelCoinController::class, 'performance']);
 });
 
 Route::middleware(['auth:sanctum', 'role:customer', 'throttle:api'])->group(function () {

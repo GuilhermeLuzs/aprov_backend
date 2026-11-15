@@ -24,7 +24,7 @@ class RewardPreviewController extends Controller
             ]);
         }
 
-        $item->loadMissing('company.coinRuleTopics');
+        $item->loadMissing(['company.coin', 'company.coinRuleTopics']);
 
         $facts = new CoinRuleTopicFacts(
             completed: $request->validated('draft.completed'),

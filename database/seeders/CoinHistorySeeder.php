@@ -21,7 +21,7 @@ class CoinHistorySeeder extends Seeder
         Review::query()
             ->published()
             ->whereDoesntHave('reward')
-            ->with(['tags', 'media', 'item.company.coinRuleTopics'])
+            ->with(['tags', 'media', 'item.company.coin', 'item.company.coinRuleTopics'])
             ->orderBy('id')
             ->chunkById(200, function ($reviews) {
                 DB::transaction(fn () => $reviews->each(fn (Review $review) => $this->credit($review)));

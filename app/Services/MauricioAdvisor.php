@@ -51,7 +51,7 @@ class MauricioAdvisor
 
     private function rewardInstructions(Item $item, CoinRuleTopicFacts $facts): string
     {
-        $item->loadMissing('company.coinRuleTopics');
+        $item->loadMissing(['company.coin', 'company.coinRuleTopics']);
 
         $topics = $item->rewardTopics();
 

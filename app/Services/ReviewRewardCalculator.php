@@ -27,7 +27,7 @@ class ReviewRewardCalculator
             return $this->creditNothing($review);
         }
 
-        $review->loadMissing(['item.company.coinRuleTopics', 'tags', 'media']);
+        $review->loadMissing(['item.company.coin', 'item.company.coinRuleTopics', 'tags', 'media']);
 
         $company = $review->item->company;
         $topics = $review->item->rewardTopics();

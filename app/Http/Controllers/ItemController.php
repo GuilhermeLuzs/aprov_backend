@@ -17,7 +17,7 @@ class ItemController extends Controller
     {
         $items = Item::query()
             ->where('is_active', true)
-            ->with(['media', 'company.coinRuleTopics'])
+            ->with(['media', 'company.coin', 'company.coinRuleTopics'])
             ->withCount('reviews')
             ->withAvg('reviews', 'average_rating')
             ->orderBy('id')
