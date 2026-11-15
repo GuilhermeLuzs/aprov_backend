@@ -53,7 +53,7 @@ class MauricioAdvisor
     {
         $item->loadMissing('company.coinRuleTopics');
 
-        $topics = $item->company?->coinRuleTopics ?? collect();
+        $topics = $item->rewardTopics();
 
         $missing = $topics
             ->reject(fn ($topic) => CoinRuleTopicEvaluator::satisfies($topic->topic, $topic->threshold, $facts))

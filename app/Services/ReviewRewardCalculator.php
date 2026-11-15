@@ -30,7 +30,7 @@ class ReviewRewardCalculator
         $review->loadMissing(['item.company.coinRuleTopics', 'tags', 'media']);
 
         $company = $review->item->company;
-        $topics = $company?->coinRuleTopics ?? collect();
+        $topics = $review->item->rewardTopics();
 
         $needsCoherenceCheck = $topics->contains('topic', CoinRuleTopic::CoherentComment);
 

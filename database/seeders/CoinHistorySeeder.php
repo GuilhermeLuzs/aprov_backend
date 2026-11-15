@@ -31,7 +31,7 @@ class CoinHistorySeeder extends Seeder
     private function credit(Review $review): void
     {
         $company = $review->item?->company;
-        $topics = $company?->coinRuleTopics ?? collect();
+        $topics = $review->item->rewardTopics();
 
         $facts = new CoinRuleTopicFacts(
             completed: true,
