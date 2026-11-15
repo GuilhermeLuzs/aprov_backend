@@ -46,4 +46,10 @@ return Application::configure(basePath: dirname(__DIR__))
                 return ApiResponse::error($httpMessages[$status] ?? 'Não foi possível concluir a chamada.', [], $status);
             }
         });
+
+        $exceptions->render(function (Throwable $exception, Request $request) {
+            if ($request->expectsJson() && ! config('app.debug')) {
+                return ApiResponse::error('Não foi possível concluir a chamada.', [], 500);
+            }
+        });
     })->create();
