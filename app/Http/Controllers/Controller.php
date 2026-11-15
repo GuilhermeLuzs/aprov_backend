@@ -19,7 +19,7 @@ abstract class Controller
 
     protected function viewer(Request $request): ?User
     {
-        return $request->user('sanctum');
+        return $request->user();
     }
 
     protected function viewerCustomer(Request $request): ?Customer
