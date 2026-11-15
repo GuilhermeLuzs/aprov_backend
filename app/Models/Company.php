@@ -74,6 +74,11 @@ class Company extends Model
         return $this->belongsToMany(Customer::class)->withTimestamps();
     }
 
+    public function coupons(): HasMany
+    {
+        return $this->hasMany(Coupon::class);
+    }
+
     public function coinRuleTopics(): HasMany
     {
         return $this->hasMany(CompanyCoinRuleTopic::class);

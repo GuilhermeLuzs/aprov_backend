@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Coupon;
 use App\Models\Item;
 use App\Models\Report;
 use App\Models\Review;
@@ -25,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
 
     private const ID_PATTERN = '[0-9]{1,18}';
 
-    private const ID_PARAMETERS = ['item', 'company', 'review', 'comment', 'customer', 'panelItem'];
+    private const ID_PARAMETERS = ['item', 'company', 'review', 'comment', 'customer', 'panelItem', 'coupon', 'panelCoupon'];
 
     /**
      * Register any application services.
@@ -44,6 +45,11 @@ class AppServiceProvider extends ServiceProvider
             Report::TARGET_REVIEW => Review::class,
             Report::TARGET_COMMENT => ReviewComment::class,
         ]);
+
+        Route::bind('panelCoupon', fn (string $id) => Coupon::query()
+            ->whereKey($id)
+            ->where('company_id', request()->user()?->company?->id)
+            ->firstOrFail());
 
         Route::bind('panelItem', fn (string $id) => Item::query()
             ->whereKey($id)

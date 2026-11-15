@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\HomeController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\MauricioChatController;
 use App\Http\Controllers\MeItemController;
 use App\Http\Controllers\PanelAuthController;
 use App\Http\Controllers\PanelCoinController;
+use App\Http\Controllers\PanelCouponController;
 use App\Http\Controllers\PanelItemController;
 use App\Http\Controllers\PanelItemMediaController;
 use App\Http\Controllers\PreferencesController;
@@ -49,6 +51,11 @@ Route::middleware(['auth:sanctum', 'role:company', 'throttle:api'])->prefix('pan
     Route::put('coin', [PanelCoinController::class, 'update']);
     Route::patch('coin/status', [PanelCoinController::class, 'status']);
     Route::get('coin/performance', [PanelCoinController::class, 'performance']);
+    Route::get('coupons', [PanelCouponController::class, 'index']);
+    Route::post('coupons', [PanelCouponController::class, 'store']);
+    Route::post('coupons/{panelCoupon}/codes', [PanelCouponController::class, 'addCodes']);
+    Route::delete('coupons/{panelCoupon}/codes/{code}', [PanelCouponController::class, 'removeCode'])->whereNumber('code');
+    Route::delete('coupons/{panelCoupon}', [PanelCouponController::class, 'destroy']);
 });
 
 Route::middleware(['auth:sanctum', 'role:customer', 'throttle:api'])->group(function () {
@@ -57,6 +64,10 @@ Route::middleware(['auth:sanctum', 'role:customer', 'throttle:api'])->group(func
     Route::get('me', [AuthController::class, 'me']);
     Route::put('me/preferences', [PreferencesController::class, 'update']);
     Route::get('me/wallet', [WalletController::class, 'show']);
+    Route::get('me/redemptions', [CouponController::class, 'mine']);
+    Route::get('coupons/companies', [CouponController::class, 'companies']);
+    Route::get('companies/{company}/coupons', [CouponController::class, 'forCompany']);
+    Route::post('coupons/{coupon}/redeem', [CouponController::class, 'redeem'])->middleware('throttle:uploads');
     Route::get('me/reviews', [ReviewController::class, 'mine']);
     Route::get('me/items', [MeItemController::class, 'index']);
     Route::put('me/items/{item}/{state}', [MeItemController::class, 'update']);
