@@ -36,6 +36,10 @@ class CouponController extends Controller
             ->whereHas('coupons', fn (Builder $coupons) => $coupons->available())
             ->when(! $text->isEmpty(), fn (Builder $q) => $text->constrain($q, 'name'))
             ->with(['coin', 'coupons' => fn ($coupons) => $coupons->available()->orderBy('coin_cost')])
+            ->orderByDesc(CustomerCoinBalance::query()
+                ->select('balance')
+                ->whereColumn('company_id', 'companies.id')
+                ->where('customer_id', $this->viewerCustomer($request)->id))
             ->orderBy('name')
             ->paginate(self::COMPANIES_PER_PAGE);
 
