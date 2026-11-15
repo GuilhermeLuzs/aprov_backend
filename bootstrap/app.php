@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\ApiResponse;
+use App\Http\Middleware\EnsureUserRole;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -13,6 +14,7 @@ $httpMessages = [
     403 => 'Você não tem acesso a isso.',
     404 => 'Não encontrado.',
     405 => 'Esta rota não aceita esse método.',
+    419 => 'Sua sessão expirou. Recarregue a página e tente de novo.',
     429 => 'Muitas tentativas. Tente de novo daqui a pouco.',
 ];
 
@@ -24,7 +26,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->statefulApi();
+        $middleware->alias(['role' => EnsureUserRole::class]);
     })
     ->withExceptions(function (Exceptions $exceptions) use ($httpMessages): void {
         $exceptions->render(function (ValidationException $exception, Request $request) {
