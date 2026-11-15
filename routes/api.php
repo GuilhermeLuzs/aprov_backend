@@ -16,6 +16,7 @@ use App\Http\Controllers\PanelCoinController;
 use App\Http\Controllers\PanelCouponController;
 use App\Http\Controllers\PanelItemController;
 use App\Http\Controllers\PanelItemMediaController;
+use App\Http\Controllers\PanelOverviewController;
 use App\Http\Controllers\PreferencesController;
 use App\Http\Controllers\ReactionController;
 use App\Http\Controllers\ReportController;
@@ -51,6 +52,7 @@ Route::middleware(['auth:sanctum', 'role:company', 'throttle:api'])->prefix('pan
     Route::put('coin', [PanelCoinController::class, 'update']);
     Route::patch('coin/status', [PanelCoinController::class, 'status']);
     Route::get('coin/performance', [PanelCoinController::class, 'performance']);
+    Route::get('overview', [PanelOverviewController::class, 'show']);
     Route::get('coupons', [PanelCouponController::class, 'index']);
     Route::post('coupons', [PanelCouponController::class, 'store']);
     Route::post('coupons/{panelCoupon}/codes', [PanelCouponController::class, 'addCodes']);

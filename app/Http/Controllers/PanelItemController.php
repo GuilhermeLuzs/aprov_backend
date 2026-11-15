@@ -14,6 +14,7 @@ use App\Models\Item;
 use App\Models\ItemMedia;
 use App\Models\Review;
 use App\Support\FullTextSearch;
+use App\Support\ReviewStats;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
@@ -122,34 +123,15 @@ class PanelItemController extends Controller
         $all = Review::query()->published()->where('item_id', $panelItem->id);
         $last = (clone $all)->max('created_at');
         $scoped = (clone $all)->whereBetween('created_at', [$request->start()->utc(), $request->end()->utc()]);
-        $offset = CarbonImmutable::now(config('aprov.panel_timezone'))->format('P');
-
-        $days = (clone $scoped)
-            ->selectRaw("DATE(CONVERT_TZ(created_at, '+00:00', ?)) as day", [$offset])
-            ->selectRaw('COUNT(*) as count, AVG(average_rating) as overall, AVG(delivery_rating) as delivery, AVG(quality_rating) as quality, AVG(conformity_rating) as conformity, AVG(value_rating) as value')
-            ->groupBy('day')
-            ->orderBy('day')
-            ->get()
-            ->map(fn ($row) => [
-                'day' => (string) $row->day,
-                'count' => (int) $row->count,
-                ...$this->averages($row),
-            ]);
-
-        $totals = (clone $scoped)
-            ->selectRaw('COUNT(*) as count, AVG(average_rating) as overall, AVG(delivery_rating) as delivery, AVG(quality_rating) as quality, AVG(conformity_rating) as conformity, AVG(value_rating) as value')
-            ->toBase()
-            ->first();
 
         return $this->sendResponse([
             'totalReviews' => (clone $all)->count(),
             'lastReviewDay' => $last ? CarbonImmutable::parse($last, 'UTC')->setTimezone(config('aprov.panel_timezone'))->toDateString() : null,
             'period' => [
-                'count' => (int) $totals->count,
-                'averages' => $this->averages($totals),
-                'days' => $days,
-                'positiveTags' => $this->topTags($scoped, TagSentiment::Positive),
-                'negativeTags' => $this->topTags($scoped, TagSentiment::Negative),
+                ...ReviewStats::totals($scoped),
+                'days' => ReviewStats::days($scoped),
+                'positiveTags' => ReviewStats::topTags($scoped, TagSentiment::Positive),
+                'negativeTags' => ReviewStats::topTags($scoped, TagSentiment::Negative),
             ],
         ]);
     }
@@ -216,33 +198,5 @@ class PanelItemController extends Controller
         if ($paths !== []) {
             Storage::disk('public')->delete($paths);
         }
-    }
-
-    private function averages(object $row): array
-    {
-        $value = fn ($average) => $average === null ? null : round((float) $average, 2);
-
-        return [
-            'overall' => $value($row->overall),
-            'delivery' => $value($row->delivery),
-            'quality' => $value($row->quality),
-            'conformity' => $value($row->conformity),
-            'value' => $value($row->value),
-        ];
-    }
-
-    private function topTags(Builder $scoped, TagSentiment $sentiment): array
-    {
-        return DB::table('review_tag')
-            ->join('tags', 'tags.id', '=', 'review_tag.tag_id')
-            ->whereIn('review_tag.review_id', (clone $scoped)->select('reviews.id'))
-            ->where('tags.sentiment', $sentiment->value)
-            ->groupBy('tags.id', 'tags.name')
-            ->orderByDesc('count')
-            ->orderBy('tags.name')
-            ->limit(self::TOP_TAGS)
-            ->get(['tags.id', 'tags.name', DB::raw('COUNT(*) as count')])
-            ->map(fn ($tag) => ['id' => $tag->id, 'label' => $tag->name, 'count' => (int) $tag->count])
-            ->all();
     }
 }
