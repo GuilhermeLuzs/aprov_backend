@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Enums\CoinRuleTopic;
+use App\Enums\CoinTransactionType;
 use App\Enums\ReviewMediaType;
+use App\Models\CoinTransaction;
 use App\Models\CustomerCoinBalance;
 use App\Models\Review;
 use App\Models\ReviewReward;
@@ -53,6 +55,17 @@ class ReviewRewardCalculator
                     ['customer_id' => $review->customer_id, 'company_id' => $company->id],
                     []
                 )->increment('balance', $coins);
+
+                foreach ($awarded->where('coins', '>', 0) as $topic) {
+                    CoinTransaction::create([
+                        'customer_id' => $review->customer_id,
+                        'company_id' => $company->id,
+                        'type' => CoinTransactionType::Earned,
+                        'amount' => $topic->coins,
+                        'review_id' => $review->id,
+                        'topic' => $topic->topic,
+                    ]);
+                }
             }
 
             $customer = $review->customer;
