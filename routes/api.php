@@ -11,11 +11,13 @@ use App\Http\Controllers\ItemReviewController;
 use App\Http\Controllers\MauricioChatController;
 use App\Http\Controllers\MeItemController;
 use App\Http\Controllers\PanelAuthController;
+use App\Http\Controllers\PanelItemController;
+use App\Http\Controllers\PanelItemMediaController;
 use App\Http\Controllers\PreferencesController;
 use App\Http\Controllers\ReactionController;
 use App\Http\Controllers\ReportController;
-use App\Http\Controllers\RewardPreviewController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\RewardPreviewController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +34,16 @@ Route::middleware(['auth:sanctum', 'role:company,master', 'throttle:api'])->pref
     Route::patch('me', [PanelAuthController::class, 'update']);
     Route::put('me/password', [PanelAuthController::class, 'changePassword']);
     Route::post('logout', [PanelAuthController::class, 'logout']);
+});
+
+Route::middleware(['auth:sanctum', 'role:company', 'throttle:api'])->prefix('panel')->group(function () {
+    Route::get('items', [PanelItemController::class, 'index']);
+    Route::post('items', [PanelItemController::class, 'store']);
+    Route::get('items/{panelItem}', [PanelItemController::class, 'show']);
+    Route::put('items/{panelItem}', [PanelItemController::class, 'update']);
+    Route::patch('items/{panelItem}/status', [PanelItemController::class, 'status']);
+    Route::get('items/{panelItem}/metrics', [PanelItemController::class, 'metrics']);
+    Route::post('item-media', [PanelItemMediaController::class, 'store'])->middleware('throttle:uploads');
 });
 
 Route::middleware(['auth:sanctum', 'role:customer', 'throttle:api'])->group(function () {

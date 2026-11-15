@@ -3,13 +3,14 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreReviewRequest extends FormRequest
 {
     public function rules(): array
     {
         return [
-            'itemId' => ['required', 'integer', 'exists:items,id'],
+            'itemId' => ['required', 'integer', Rule::exists('items', 'id')->where('is_active', true)->whereNull('deleted_at')],
             'deliveryRating' => ['required', 'integer', 'between:1,5'],
             'qualityRating' => ['required', 'integer', 'between:1,5'],
             'conformityRating' => ['required', 'integer', 'between:1,5'],

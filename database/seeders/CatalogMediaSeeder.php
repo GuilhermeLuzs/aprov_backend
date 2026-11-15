@@ -25,6 +25,7 @@ class CatalogMediaSeeder extends Seeder
 
             foreach ($media['items'][$index] ?? [] as $position => $file) {
                 $item->media()->create([
+                    'company_id' => $item->company_id,
                     'type' => $file['type'],
                     'path' => SeedMedia::publish($file['path']),
                     'cover_path' => isset($file['cover_path']) ? SeedMedia::publish($file['cover_path']) : null,

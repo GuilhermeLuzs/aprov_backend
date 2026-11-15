@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 class ItemMedia extends Model
 {
     protected $fillable = [
+        'company_id',
         'item_id',
         'type',
         'path',
