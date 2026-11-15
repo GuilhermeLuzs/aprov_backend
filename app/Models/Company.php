@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Category;
 use App\Enums\CompanyModality;
 use App\Enums\CompanySize;
 use Illuminate\Database\Eloquent\Model;
@@ -44,6 +45,7 @@ class Company extends Model
         return [
             'modality' => CompanyModality::class,
             'size' => CompanySize::class,
+            'niche' => Category::class,
         ];
     }
 

@@ -10,6 +10,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ItemReviewController;
 use App\Http\Controllers\MauricioChatController;
 use App\Http\Controllers\MeItemController;
+use App\Http\Controllers\PanelAuthController;
 use App\Http\Controllers\PreferencesController;
 use App\Http\Controllers\ReactionController;
 use App\Http\Controllers\ReportController;
@@ -22,9 +23,18 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('throttle:auth')->group(function () {
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
+    Route::post('panel/login', [PanelAuthController::class, 'login']);
+    Route::post('panel/register', [PanelAuthController::class, 'register']);
 });
 
-Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
+Route::middleware(['auth:sanctum', 'role:company,master', 'throttle:api'])->prefix('panel')->group(function () {
+    Route::get('me', [PanelAuthController::class, 'me']);
+    Route::patch('me', [PanelAuthController::class, 'update']);
+    Route::put('me/password', [PanelAuthController::class, 'changePassword']);
+    Route::post('logout', [PanelAuthController::class, 'logout']);
+});
+
+Route::middleware(['auth:sanctum', 'role:customer', 'throttle:api'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
 
     Route::get('me', [AuthController::class, 'me']);

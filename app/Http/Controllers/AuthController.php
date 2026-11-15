@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\UserRole;
+use App\Enums\UserStatus;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterCustomerRequest;
 use App\Http\Resources\CustomerResource;
@@ -44,6 +45,10 @@ class AuthController extends Controller
 
         if (! $user || $user->role !== UserRole::Customer || ! Hash::check($request->validated('password'), $user->password)) {
             return $this->sendError('E-mail ou senha incorretos.', [], Status::HTTP_UNAUTHORIZED);
+        }
+
+        if ($user->status !== UserStatus::Active) {
+            return $this->sendError('Esta conta está inativa. Fale com o suporte da APROV.', [], Status::HTTP_FORBIDDEN);
         }
 
         return $this->session($user->customer, 'Login feito.');

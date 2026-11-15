@@ -25,7 +25,7 @@ class CompanySeeder extends Seeder
             $user = User::create([
                 'name' => $data['name'],
                 'email' => "contato@{$slug}.teste",
-                'password' => 'empresa1234',
+                'password' => Str::password(32),
                 'role' => UserRole::Company,
             ]);
 
@@ -48,7 +48,7 @@ class CompanySeeder extends Seeder
                 'responsible_phone' => '11990000000',
                 'niche' => $data['niche'],
                 'modality' => CompanyModality::Hybrid,
-                'size' => CompanySize::From11To50,
+                'size' => CompanySize::Small,
             ]);
 
             CompanyCoin::create([
