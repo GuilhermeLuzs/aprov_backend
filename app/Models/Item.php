@@ -5,10 +5,14 @@ namespace App\Models;
 use App\Enums\CoinRuleTopic;
 use App\Enums\ItemKind;
 use App\Enums\ItemState;
+use App\Enums\ReviewMediaType;
+use App\Enums\ServiceModality;
+use App\Enums\ServiceRecurrence;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Item extends Model
@@ -34,6 +38,9 @@ class Item extends Model
         return [
             'kind' => ItemKind::class,
             'categories' => 'array',
+            'service_modality' => ServiceModality::class,
+            'recurrence' => ServiceRecurrence::class,
+            'duration_minutes' => 'integer',
             'is_active' => 'boolean',
         ];
     }
@@ -46,6 +53,16 @@ class Item extends Model
     public function media(): HasMany
     {
         return $this->hasMany(ItemMedia::class)->orderBy('position');
+    }
+
+    public function cover(): HasOne
+    {
+        return $this->hasOne(ItemMedia::class)->ofMany(['position' => 'min'], fn (Builder $query) => $query->where('type', ReviewMediaType::Photo));
+    }
+
+    public function cities(): HasMany
+    {
+        return $this->hasMany(ItemCity::class)->orderBy('state')->orderBy('city');
     }
 
     public function reviews(): HasMany

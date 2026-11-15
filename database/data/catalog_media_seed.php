@@ -414,6 +414,62 @@ return [
                 'height' => 1080,
             ],
         ],
+        [
+            [
+                'type' => 'photo',
+                'path' => 'items/photo-1640777.jpeg',
+                'width' => 1080,
+                'height' => 1080,
+            ],
+        ],
+        [
+            [
+                'type' => 'photo',
+                'path' => 'items/photo-5638732.jpeg',
+                'width' => 1080,
+                'height' => 1080,
+            ],
+        ],
+        [
+            [
+                'type' => 'photo',
+                'path' => 'items/photo-3769999.jpeg',
+                'width' => 1080,
+                'height' => 1080,
+            ],
+        ],
+        [
+            [
+                'type' => 'photo',
+                'path' => 'items/photo-2097090.jpeg',
+                'width' => 1080,
+                'height' => 1080,
+            ],
+        ],
+        [
+            [
+                'type' => 'photo',
+                'path' => 'items/photo-5718071.jpeg',
+                'width' => 1080,
+                'height' => 1080,
+            ],
+        ],
+        [
+            [
+                'type' => 'photo',
+                'path' => 'items/photo-6605214.jpeg',
+                'width' => 1080,
+                'height' => 1080,
+            ],
+        ],
+        [
+            [
+                'type' => 'photo',
+                'path' => 'items/photo-6287525.jpeg',
+                'width' => 1080,
+                'height' => 1080,
+            ],
+        ],
     ],
     'logos' => [
         'companies/photo-36169774.jpeg',

@@ -70,6 +70,24 @@ class FullTextSearch
         return $query->whereRaw($sql, $bindings);
     }
 
+    public function constrainColumns(Builder $query, array $columns): Builder
+    {
+        $parts = [];
+        $bindings = [];
+
+        if ($this->indexedWords !== []) {
+            $parts[] = 'MATCH('.implode(', ', $columns).') AGAINST (? IN BOOLEAN MODE)';
+            $bindings[] = $this->booleanQuery();
+        }
+
+        foreach ($this->plainWords as $word) {
+            $parts[] = "CONCAT_WS(' ', ".implode(', ', $columns).') LIKE ?';
+            $bindings[] = '%'.addcslashes($word, '%_\\').'%';
+        }
+
+        return $query->whereRaw('('.implode(' AND ', $parts).')', $bindings);
+    }
+
     public function orderByRelevance(Builder $query, string $column): Builder
     {
         if ($this->indexedWords === []) {

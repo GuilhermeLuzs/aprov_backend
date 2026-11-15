@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Item;
 use App\Models\Report;
 use App\Models\Review;
 use App\Models\ReviewComment;
@@ -16,13 +17,15 @@ class AppServiceProvider extends ServiceProvider
 {
     private const API_CALLS_PER_MINUTE = 60;
 
+    private const UPLOADS_PER_MINUTE = 20;
+
     private const AUTH_ATTEMPTS_PER_MINUTE = 5;
 
     private const AUTH_ATTEMPTS_PER_IP_PER_MINUTE = 20;
 
     private const ID_PATTERN = '[0-9]{1,18}';
 
-    private const ID_PARAMETERS = ['item', 'company', 'review', 'comment', 'customer'];
+    private const ID_PARAMETERS = ['item', 'company', 'review', 'comment', 'customer', 'panelItem'];
 
     /**
      * Register any application services.
@@ -42,11 +45,19 @@ class AppServiceProvider extends ServiceProvider
             Report::TARGET_COMMENT => ReviewComment::class,
         ]);
 
+        Route::bind('panelItem', fn (string $id) => Item::query()
+            ->whereKey($id)
+            ->where('company_id', request()->user()?->company?->id)
+            ->firstOrFail());
+
         foreach (self::ID_PARAMETERS as $parameter) {
             Route::pattern($parameter, self::ID_PATTERN);
         }
 
         RateLimiter::for('api', fn (Request $request) => Limit::perMinute(self::API_CALLS_PER_MINUTE)
+            ->by($request->user()?->id ?: $request->ip()));
+
+        RateLimiter::for('uploads', fn (Request $request) => Limit::perMinute(self::UPLOADS_PER_MINUTE)
             ->by($request->user()?->id ?: $request->ip()));
 
         RateLimiter::for('auth', fn (Request $request) => [
