@@ -14,7 +14,7 @@ class Report extends Model
 
     public const TARGET_COMMENT = 'comment';
 
-    protected $fillable = ['reporter_id', 'reportable_type', 'reportable_id', 'reason', 'description', 'status'];
+    protected $fillable = ['reporter_id', 'reportable_type', 'reportable_id', 'reason', 'description', 'status', 'decision', 'resolution_note', 'resolved_by', 'resolved_at'];
 
     protected function casts(): array
     {

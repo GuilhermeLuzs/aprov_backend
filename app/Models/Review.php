@@ -17,6 +17,8 @@ class Review extends Model
 
     public const STATUS_PUBLISHED = 'published';
 
+    public const STATUS_REMOVED = 'removed';
+
     public const CARD_RELATIONS = ['tags', 'media', 'customer.user', 'item.media', 'item.company.coin'];
 
     protected $fillable = [
