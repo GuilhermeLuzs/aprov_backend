@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
 
     private const ID_PATTERN = '[0-9]{1,18}';
 
-    private const ID_PARAMETERS = ['item', 'company', 'review', 'comment', 'customer', 'panelItem', 'coupon', 'panelCoupon'];
+    private const ID_PARAMETERS = ['item', 'company', 'review', 'comment', 'customer', 'panelItem', 'coupon', 'panelCoupon', 'ticket'];
 
     /**
      * Register any application services.

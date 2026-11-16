@@ -9,6 +9,7 @@ use App\Http\Controllers\FeedController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ItemReviewController;
+use App\Http\Controllers\MasterQueueController;
 use App\Http\Controllers\MauricioChatController;
 use App\Http\Controllers\MeItemController;
 use App\Http\Controllers\PanelAuthController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\ReactionController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RewardPreviewController;
+use App\Http\Controllers\SupportTicketController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Route;
@@ -60,7 +62,19 @@ Route::middleware(['auth:sanctum', 'role:company', 'throttle:api'])->prefix('pan
     Route::delete('coupons/{panelCoupon}', [PanelCouponController::class, 'destroy']);
 });
 
+Route::middleware(['auth:sanctum', 'role:master', 'throttle:api'])->prefix('panel/master')->group(function () {
+    Route::get('queues', [MasterQueueController::class, 'show']);
+    Route::post('reports/resolve', [MasterQueueController::class, 'resolve']);
+    Route::put('assignments', [MasterQueueController::class, 'assign']);
+    Route::post('tickets/{ticket}/messages', [MasterQueueController::class, 'reply']);
+    Route::patch('tickets/{ticket}/status', [MasterQueueController::class, 'status']);
+});
+
 Route::middleware(['auth:sanctum', 'role:customer', 'throttle:api'])->group(function () {
+    Route::get('me/tickets', [SupportTicketController::class, 'index']);
+    Route::post('me/tickets', [SupportTicketController::class, 'store']);
+    Route::get('me/tickets/{ticket}', [SupportTicketController::class, 'show']);
+    Route::post('me/tickets/{ticket}/messages', [SupportTicketController::class, 'reply']);
     Route::post('logout', [AuthController::class, 'logout']);
 
     Route::get('me', [AuthController::class, 'me']);

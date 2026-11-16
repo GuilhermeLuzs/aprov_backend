@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ReviewHistorySeeder::class);
         $this->call(CoinHistorySeeder::class);
         $this->call(CouponSeeder::class);
+        $this->call(ModerationSeeder::class);
     }
 }
