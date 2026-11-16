@@ -71,7 +71,7 @@ class MasterAccountController extends Controller
                 ->when($data['size'] ?? null, fn ($q, $size) => $q->where('size', $size));
         }
 
-        $results = $query->orderBy('id')->limit(self::RESULT_LIMIT)->get();
+        $results = $query->orderBy('id')->limit(self::RESULT_LIMIT + 1)->get();
 
         return $this->sendResponse(
             $results->map(fn ($account) => $customer ? $this->customer($account) : $this->company($account))->values()
@@ -136,6 +136,7 @@ class MasterAccountController extends Controller
                 ->map(fn (Item $item) => [
                     'id' => (string) $item->id,
                     'title' => $item->title,
+                    'kind' => $item->kind,
                     'coverUrl' => $item->cover?->url(),
                     'active' => $item->is_active,
                     'count' => (int) $item->reviews_count,

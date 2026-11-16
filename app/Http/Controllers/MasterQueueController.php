@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\ReportStatus;
 use App\Enums\UserRole;
+use App\Models\AccountAccessEvent;
 use App\Models\ModerationAssignment;
 use App\Models\Report;
 use App\Models\Review;
@@ -19,6 +20,8 @@ use Illuminate\Validation\Rule;
 class MasterQueueController extends Controller
 {
     private const RESOLVED_DAYS = 90;
+
+    private const ACCESS_EVENTS = 200;
 
     public function show(): JsonResponse
     {
@@ -57,6 +60,19 @@ class MasterQueueController extends Controller
             'tickets' => $tickets->map(fn (SupportTicket $ticket) => $this->ticket($ticket))->values(),
             'targets' => $this->targets($reports),
             'admins' => User::query()->where('role', UserRole::Master)->pluck('name', 'id'),
+            'accessEvents' => AccountAccessEvent::query()->with(['user.customer', 'user.company'])->latest('id')->limit(self::ACCESS_EVENTS)->get()
+                ->map(fn (AccountAccessEvent $event) => [
+                    'id' => (string) $event->id,
+                    'account' => $event->user?->company
+                        ? ['kind' => 'company', 'id' => 'c'.$event->user->company->id]
+                        : ['kind' => 'customer', 'id' => 'u'.$event->user?->customer?->id],
+                    'accountName' => $event->user?->company?->name ?? $event->user?->name ?? 'Conta removida',
+                    'action' => $event->action,
+                    'reason' => $event->reason,
+                    'note' => $event->note ?? '',
+                    'createdAt' => $event->created_at->toIso8601String(),
+                    'byId' => (string) $event->applied_by,
+                ])->values(),
         ]);
     }
 
