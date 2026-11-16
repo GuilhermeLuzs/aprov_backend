@@ -7,6 +7,7 @@ use App\Enums\CoinTransactionType;
 use App\Enums\ReviewMediaType;
 use App\Models\CoinTransaction;
 use App\Models\CustomerCoinBalance;
+use App\Models\PointTransaction;
 use App\Models\Review;
 use App\Models\ReviewReward;
 use App\Support\CoinRuleTopicEvaluator;
@@ -17,9 +18,7 @@ class ReviewRewardCalculator
 {
     private const XP_PER_LEVEL = 200;
 
-    public function __construct(private readonly CommentCoherenceChecker $coherenceChecker)
-    {
-    }
+    public function __construct(private readonly CommentCoherenceChecker $coherenceChecker) {}
 
     public function credit(Review $review): ReviewReward
     {
@@ -70,6 +69,9 @@ class ReviewRewardCalculator
 
             $customer = $review->customer;
             $customer->increment('points_balance', $points);
+            if ($points > 0) {
+                PointTransaction::create(['customer_id' => $customer->id, 'type' => PointTransaction::EARNED, 'amount' => $points, 'review_id' => $review->id]);
+            }
             $customer->increment('xp', $xp);
             $customer->level = intdiv($customer->xp, self::XP_PER_LEVEL) + 1;
             $customer->save();

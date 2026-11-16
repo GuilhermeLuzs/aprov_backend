@@ -7,6 +7,7 @@ use App\Enums\CoinTransactionType;
 use App\Enums\ReviewMediaType;
 use App\Models\CoinTransaction;
 use App\Models\CustomerCoinBalance;
+use App\Models\PointTransaction;
 use App\Models\Review;
 use App\Models\ReviewReward;
 use App\Support\CoinRuleTopicEvaluator;
@@ -56,11 +57,7 @@ class CoinHistorySeeder extends Seeder
         ]);
         $reward->forceFill($moment)->save();
 
-        if (! $company || $coins === 0) {
-            return;
-        }
-
-        foreach ($awarded->where('coins', '>', 0) as $topic) {
+        foreach ($company ? $awarded->where('coins', '>', 0) : [] as $topic) {
             (new CoinTransaction([
                 'customer_id' => $review->customer_id,
                 'company_id' => $company->id,
@@ -71,9 +68,14 @@ class CoinHistorySeeder extends Seeder
             ]))->forceFill($moment)->save();
         }
 
-        CustomerCoinBalance::query()
-            ->firstOrCreate(['customer_id' => $review->customer_id, 'company_id' => $company->id])
-            ->increment('balance', $coins);
+        if ($company && $coins > 0) {
+            CustomerCoinBalance::query()
+                ->firstOrCreate(['customer_id' => $review->customer_id, 'company_id' => $company->id])
+                ->increment('balance', $coins);
+        }
         $review->customer()->increment('points_balance', $points);
+        if ($points > 0) {
+            (new PointTransaction(['customer_id' => $review->customer_id, 'type' => PointTransaction::EARNED, 'amount' => $points, 'review_id' => $review->id]))->forceFill($moment)->save();
+        }
     }
 }
