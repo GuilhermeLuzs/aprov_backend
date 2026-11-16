@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccessoryController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CompanyController;
@@ -87,6 +88,9 @@ Route::middleware(['auth:sanctum', 'role:customer', 'throttle:api'])->group(func
     Route::get('me', [AuthController::class, 'me']);
     Route::put('me/preferences', [PreferencesController::class, 'update']);
     Route::get('me/wallet', [WalletController::class, 'show']);
+    Route::get('accessories', [AccessoryController::class, 'index']);
+    Route::post('accessories/{slug}/buy', [AccessoryController::class, 'buy'])->where('slug', '[a-z0-9-]{1,40}');
+    Route::put('me/equipped', [AccessoryController::class, 'equip']);
     Route::get('me/redemptions', [CouponController::class, 'mine']);
     Route::get('coupons/companies', [CouponController::class, 'companies']);
     Route::get('companies/{company}/coupons', [CouponController::class, 'forCompany']);

@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call(CompanySeeder::class);
+        $this->call(AccessorySeeder::class);
         $this->call(TestAccountSeeder::class);
         $this->call(CompanyCoinRuleSeeder::class);
         $this->call(CatalogSeeder::class);
