@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccessoryController;
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CompanyController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\MauricioChatController;
 use App\Http\Controllers\MeItemController;
 use App\Http\Controllers\PanelAuthController;
 use App\Http\Controllers\PanelCoinController;
+use App\Http\Controllers\PanelCompanyController;
 use App\Http\Controllers\PanelCouponController;
 use App\Http\Controllers\PanelItemController;
 use App\Http\Controllers\PanelItemMediaController;
@@ -46,6 +48,8 @@ Route::middleware(['auth:sanctum', 'role:company,master', 'throttle:api'])->pref
 });
 
 Route::middleware(['auth:sanctum', 'role:company', 'throttle:api'])->prefix('panel')->group(function () {
+    Route::patch('company', [PanelCompanyController::class, 'update']);
+    Route::post('deactivate', [PanelCompanyController::class, 'deactivate']);
     Route::get('items', [PanelItemController::class, 'index']);
     Route::post('items', [PanelItemController::class, 'store']);
     Route::get('items/{panelItem}', [PanelItemController::class, 'show']);
@@ -86,6 +90,10 @@ Route::middleware(['auth:sanctum', 'role:customer', 'throttle:api'])->group(func
     Route::post('logout', [AuthController::class, 'logout']);
 
     Route::get('me', [AuthController::class, 'me']);
+    Route::patch('me/profile', [AccountController::class, 'updateProfile']);
+    Route::post('me/avatar', [AccountController::class, 'updateAvatar'])->middleware('throttle:uploads');
+    Route::delete('me/avatar', [AccountController::class, 'removeAvatar']);
+    Route::post('me/deactivate', [AccountController::class, 'deactivate']);
     Route::put('me/preferences', [PreferencesController::class, 'update']);
     Route::get('me/wallet', [WalletController::class, 'show']);
     Route::get('accessories', [AccessoryController::class, 'index']);

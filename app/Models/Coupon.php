@@ -33,6 +33,7 @@ class Coupon extends Model
     {
         $query->whereDate('valid_until', '>=', now(config('aprov.panel_timezone'))->toDateString())
             ->whereHas('codes', fn (Builder $codes) => $codes->whereNull('coupon_redemption_id'))
+            ->whereHas('company', fn (Builder $company) => $company->active())
             ->whereHas('company.coin', fn (Builder $coin) => $coin->where('is_enabled', true));
     }
 }

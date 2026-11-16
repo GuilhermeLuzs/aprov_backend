@@ -16,7 +16,7 @@ class ItemController extends Controller
     public function index(): JsonResponse
     {
         $items = Item::query()
-            ->where('is_active', true)
+            ->onSale()
             ->with(['media', 'company.coin', 'company.coinRuleTopics'])
             ->withCount('reviews')
             ->withAvg('reviews', 'average_rating')

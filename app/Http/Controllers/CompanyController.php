@@ -40,7 +40,7 @@ class CompanyController extends Controller
 
         $items = Item::query()
             ->where('company_id', $company->id)
-            ->where('is_active', true)
+            ->onSale()
             ->forViewer($this->viewerCustomer($request))
             ->when(! $text->isEmpty(), fn (Builder $q) => $text->orderByRelevance($text->constrain($q, 'title'), 'title'))
             ->when($request->listOf('kinds'), fn (Builder $q, array $kinds) => $q->whereIn('kind', $kinds))
@@ -65,8 +65,8 @@ class CompanyController extends Controller
 
     private function companies(): Builder
     {
-        return Company::query()
-            ->with(['coin', 'items' => fn ($query) => $query->where('is_active', true)])
+        return Company::query()->active()
+            ->with(['coin', 'items' => fn ($query) => $query->onSale()])
             ->withCount(['reviews', 'followers'])
             ->withAvg('reviews', 'average_rating')
             ->orderBy('id');

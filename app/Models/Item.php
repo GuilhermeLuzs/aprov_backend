@@ -7,6 +7,7 @@ use App\Enums\ItemState;
 use App\Enums\ReviewMediaType;
 use App\Enums\ServiceModality;
 use App\Enums\ServiceRecurrence;
+use App\Enums\UserStatus;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -73,6 +74,12 @@ class Item extends Model
     public function states(): HasMany
     {
         return $this->hasMany(CustomerItemState::class);
+    }
+
+    public function scopeOnSale(Builder $query): void
+    {
+        $query->where('items.is_active', true)
+            ->whereHas('company.user', fn (Builder $user) => $user->where('status', UserStatus::Active));
     }
 
     public function scopeForViewer(Builder $query, ?Customer $viewer): void
