@@ -10,6 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ItemReviewController;
 use App\Http\Controllers\MasterAccountController;
+use App\Http\Controllers\MasterOverviewController;
 use App\Http\Controllers\MasterQueueController;
 use App\Http\Controllers\MauricioChatController;
 use App\Http\Controllers\MeItemController;
@@ -65,6 +66,7 @@ Route::middleware(['auth:sanctum', 'role:company', 'throttle:api'])->prefix('pan
 
 Route::middleware(['auth:sanctum', 'role:master', 'throttle:api'])->prefix('panel/master')->group(function () {
     Route::get('queues', [MasterQueueController::class, 'show']);
+    Route::get('overview', [MasterOverviewController::class, 'show']);
     Route::get('accounts', [MasterAccountController::class, 'search']);
     Route::get('customers/{customer}', [MasterAccountController::class, 'showCustomer'])->whereNumber('customer');
     Route::get('companies/{company}', [MasterAccountController::class, 'showCompany'])->whereNumber('company');
