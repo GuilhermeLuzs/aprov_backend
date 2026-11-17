@@ -136,6 +136,7 @@ Route::middleware(['auth:sanctum', 'role:customer', 'throttle:api'])->group(func
     Route::delete('comments/{comment}/reaction', [ReactionController::class, 'removeCommentReaction']);
 
     Route::get('customers', [CustomerController::class, 'index']);
+    Route::get('customers/suggestions', [CustomerController::class, 'suggestions']);
     Route::get('customers/{customer}', [CustomerController::class, 'show']);
     Route::get('customers/{customer}/reviews', [CustomerController::class, 'reviews']);
     Route::get('customers/{customer}/followers', [CustomerController::class, 'followers']);
