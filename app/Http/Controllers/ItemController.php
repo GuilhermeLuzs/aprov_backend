@@ -6,7 +6,7 @@ use App\Http\Resources\ItemDetailResource;
 use App\Http\Resources\ItemResource;
 use App\Http\Resources\TagResource;
 use App\Models\Item;
-use App\Models\Tag;
+use App\Support\TagCatalog;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response as Status;
@@ -44,13 +44,7 @@ class ItemController extends Controller
 
     public function tags(Item $item): JsonResponse
     {
-        $categories = $item->categories ?? [];
-
-        $tags = Tag::query()
-            ->orderBy('name')
-            ->get()
-            ->filter(fn (Tag $tag) => empty($tag->categories) || array_intersect($tag->categories, $categories) !== [])
-            ->values();
+        $tags = TagCatalog::forItem($item->kind->value, $item->categories ?? []);
 
         return $this->sendResponse(TagResource::collection($tags));
     }

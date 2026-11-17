@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Enums\ItemKind;
 use App\Models\Item;
+use App\Support\TagRules;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Validator;
 
@@ -32,6 +33,7 @@ class StoreReviewRequest extends FormRequest
         return [
             function (Validator $validator) {
                 $item = Item::query()->find((int) $this->input('itemId'));
+                TagRules::check($validator, $item, array_map('intval', (array) $this->input('tagIds', [])));
                 if ($item?->kind === ItemKind::Product && count($this->file('media', [])) === 0) {
                     $validator->errors()->add('media', 'Avaliação de produto precisa de pelo menos uma foto ou vídeo.');
                 }

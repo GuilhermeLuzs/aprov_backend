@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use App\Enums\ItemKind;
 use App\Models\Item;
-use App\Models\Tag;
 use App\Support\Municipalities;
+use App\Support\TagCatalog;
 use Illuminate\Database\Seeder;
 
 class CatalogSeeder extends Seeder
@@ -20,12 +20,7 @@ class CatalogSeeder extends Seeder
             $this->seedItem($seed);
         }
 
-        foreach ($data['tags'] as $tag) {
-            Tag::query()->firstOrCreate(
-                ['name' => $tag['label']],
-                array_diff_key($tag, ['id' => null, 'label' => null]),
-            );
-        }
+        TagCatalog::sync();
     }
 
     private function seedItem(array $seed): void

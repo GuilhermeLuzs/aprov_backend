@@ -13,6 +13,9 @@ class Tag extends Model
         'sentiment',
         'characteristic',
         'categories',
+        'kind',
+        'opposite_id',
+        'position',
     ];
 
     protected function casts(): array

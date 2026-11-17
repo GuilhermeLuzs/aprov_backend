@@ -5,11 +5,13 @@ namespace Database\Seeders;
 use App\Enums\ReactionType;
 use App\Enums\UserRole;
 use App\Models\Customer;
+use App\Models\Item;
 use App\Models\Review;
 use App\Models\ReviewComment;
 use App\Models\User;
 use App\Support\FakeCpf;
 use App\Support\SeedMedia;
+use App\Support\TagCatalog;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -118,7 +120,9 @@ class CommunitySeeder extends Seeder
         $review->updated_at = $createdAt;
         $review->save();
 
-        $review->tags()->sync($data['tag_ids']);
+        $item = Item::query()->find($data['item_id']);
+        $tagIds = TagCatalog::withoutOpposites(TagCatalog::fromLegacyIds($data['tag_ids'], $item->kind->value, $item->categories ?? []), $review);
+        $review->tags()->sync($tagIds);
 
         foreach ($data['media'] as $position => $file) {
             $review->media()->create([
@@ -138,7 +142,7 @@ class CommunitySeeder extends Seeder
                 ...$version,
                 'average_rating' => round(array_sum($versionRatings) / count($versionRatings), 1),
                 'would_buy_again' => $data['would_buy_again'],
-                'tag_ids' => $data['tag_ids'],
+                'tag_ids' => $tagIds,
                 'media_ids' => $review->media()->pluck('id')->all(),
                 'published_at' => CarbonImmutable::parse($version['published_at']),
             ]);
