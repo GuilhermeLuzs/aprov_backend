@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\ItemKind;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Validator;
 
@@ -35,6 +36,9 @@ class UpdateReviewRequest extends FormRequest
                 $total = count($this->input('keepMediaIds', [])) + count($this->file('media', []));
                 if ($total > self::MAX_MEDIA) {
                     $validator->errors()->add('media', 'No máximo 6 arquivos.');
+                }
+                if ($total === 0 && $this->route('review')?->item?->kind === ItemKind::Product) {
+                    $validator->errors()->add('media', 'Avaliação de produto precisa de pelo menos uma foto ou vídeo.');
                 }
             },
         ];
