@@ -16,7 +16,10 @@ class TagResource extends JsonResource
             'label' => $this->name,
             'sentiment' => $this->sentiment,
             'characteristic' => $this->characteristic,
-            'categories' => $this->categories,
+            'kind' => $this->kind,
+            'category' => $this->categories[0] ?? null,
+            'oppositeId' => $this->opposite_id,
+            'general' => $this->kind === null && empty($this->categories),
         ];
     }
 }

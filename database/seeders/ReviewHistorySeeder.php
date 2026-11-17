@@ -12,6 +12,7 @@ use App\Models\Review;
 use App\Models\Tag;
 use App\Models\User;
 use App\Support\FakeCpf;
+use App\Support\TagCatalog;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;
@@ -184,7 +185,7 @@ class ReviewHistorySeeder extends Seeder
         $review->updated_at = $moment;
         $review->save();
 
-        $review->tags()->sync($this->pickTags($item, $ratings, $tags));
+        $review->tags()->sync(TagCatalog::withoutOpposites($this->pickTags($item, $ratings, $tags), $review));
         $this->seedReactions($review, $customer, $customers, $tone, $moment);
     }
 
@@ -207,7 +208,7 @@ class ReviewHistorySeeder extends Seeder
 
     private function pickTags(Item $item, array $ratings, Collection $tags): array
     {
-        $fits = $tags->filter(fn (Tag $tag) => $tag->categories === [] || array_intersect($tag->categories, $item->categories) !== []);
+        $fits = $tags->filter(fn (Tag $tag) => TagCatalog::applies($tag, $item->kind->value, $item->categories ?? []));
         $chosen = [];
 
         foreach ($ratings as $characteristic => $rating) {

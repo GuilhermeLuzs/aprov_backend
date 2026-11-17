@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Enums\ItemKind;
+use App\Support\TagRules;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Validator;
 
@@ -34,6 +35,7 @@ class UpdateReviewRequest extends FormRequest
         return [
             function (Validator $validator) {
                 $total = count($this->input('keepMediaIds', [])) + count($this->file('media', []));
+                TagRules::check($validator, $this->route('review')?->item, array_map('intval', (array) $this->input('tagIds', [])));
                 if ($total > self::MAX_MEDIA) {
                     $validator->errors()->add('media', 'No máximo 6 arquivos.');
                 }
