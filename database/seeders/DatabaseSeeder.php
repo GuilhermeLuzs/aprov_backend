@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CatalogMediaSeeder::class);
         $this->call(CommunitySeeder::class);
         $this->call(ReviewHistorySeeder::class);
+        $this->call(FollowHistorySeeder::class);
         $this->call(ReviewMediaSeeder::class);
         $this->call(CoinHistorySeeder::class);
         $this->call(CouponSeeder::class);

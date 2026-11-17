@@ -25,6 +25,7 @@ class CustomerProfileResource extends JsonResource
             'followerCount' => $this->whenHas('followers_count', fn ($count) => (int) $count),
             'followingCount' => $this->whenHas('following_count', fn ($count) => (int) $count),
             'isFollowing' => $this->whenHas('followed_by_viewer', fn ($following) => (bool) $following),
+            'suggestionReason' => $this->whenHas('suggestion_reason'),
             'joinedAt' => $this->created_at->toIso8601String(),
         ];
     }

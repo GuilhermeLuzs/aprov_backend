@@ -10,6 +10,7 @@ use App\Models\Customer;
 use App\Models\Review;
 use App\Models\ReviewReaction;
 use App\Models\User;
+use App\Support\FollowSuggestions;
 use App\Support\FullTextSearch;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
@@ -141,6 +142,11 @@ class CustomerController extends Controller
             ->paginate(self::PEOPLE_PER_PAGE);
 
         return $this->sendPage($people, 'people', CustomerProfileResource::collection($people->getCollection()));
+    }
+
+    public function suggestions(Request $request): JsonResponse
+    {
+        return $this->sendResponse(CustomerProfileResource::collection((new FollowSuggestions($this->viewerCustomer($request)))->get()));
     }
 
     private function people(?Customer $viewer): Builder
