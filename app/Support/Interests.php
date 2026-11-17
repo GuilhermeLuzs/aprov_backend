@@ -13,8 +13,7 @@ class Interests
         private readonly ?int $customerId,
         private readonly array $categories,
         private readonly array $companyIds,
-    ) {
-    }
+    ) {}
 
     public static function of(?Customer $customer): self
     {
@@ -51,7 +50,7 @@ class Interests
                 Item::query()
                     ->selectRaw('count(*)')
                     ->whereColumn('items.company_id', 'companies.id')
-                    ->where('is_active', true)
+                    ->onSale()
                     ->whereRaw($condition, $bindings),
             );
         }

@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Enums\Category;
 use App\Enums\CompanyModality;
 use App\Enums\CompanySize;
+use App\Enums\UserStatus;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -47,6 +49,11 @@ class Company extends Model
             'size' => CompanySize::class,
             'niche' => Category::class,
         ];
+    }
+
+    public function scopeActive(Builder $query): void
+    {
+        $query->whereHas('user', fn (Builder $user) => $user->where('status', UserStatus::Active));
     }
 
     public function user(): BelongsTo

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class AccountAccessEvent extends Model
 {
     public const REASONS = [
-        'spam', 'fakeReview', 'offensive', 'harassment', 'fakeAccount', 'misleading', 'coupons', 'manipulation', 'registration', 'appeal', 'resolved', 'mistake', 'other',
+        'spam', 'fakeReview', 'offensive', 'harassment', 'fakeAccount', 'misleading', 'coupons', 'manipulation', 'registration', 'appeal', 'resolved', 'mistake', 'other', 'selfDeactivation',
     ];
 
     protected $fillable = ['user_id', 'applied_by', 'action', 'reason', 'note'];

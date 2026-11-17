@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\ReactionType;
+use App\Enums\UserStatus;
 use App\Http\Resources\CustomerProfileResource;
 use App\Http\Resources\ReviewResource;
 use App\Models\Customer;
@@ -146,6 +147,7 @@ class CustomerController extends Controller
     {
         return Customer::query()
             ->select('customers.*')
+            ->whereHas('user', fn (Builder $user) => $user->where('status', UserStatus::Active))
             ->with('user')
             ->withCount('followers')
             ->when($viewer, fn (Builder $q) => $q->withExists([

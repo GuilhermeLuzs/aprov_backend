@@ -27,11 +27,11 @@ class HomeController extends Controller
         $companyIds = $request->companyIds();
         $viewer = $this->viewerCustomer($request);
         $interests = Interests::of($viewer);
-        $activeItems = fn (Builder $items) => $items->where('is_active', true);
+        $activeItems = fn (Builder $items) => $items->onSale();
         $matchingItems = fn (Builder $items) => $activeItems($items)
             ->when($searching, fn (Builder $q) => $text->constrain($q, 'title'));
 
-        $companies = Company::query()
+        $companies = Company::query()->active()
             ->select('companies.*')
             ->when($companyIds, fn (Builder $q) => $q->whereIn('id', $companyIds))
             ->when(
@@ -73,7 +73,7 @@ class HomeController extends Controller
         $bestItemScore = Item::query()
             ->selectRaw("MAX({$titleScore})", $titleScoreBindings)
             ->whereColumn('items.company_id', 'companies.id')
-            ->where('is_active', true);
+            ->onSale();
 
         $query
             ->selectRaw("{$nameCondition} as name_matches", $nameBindings)
