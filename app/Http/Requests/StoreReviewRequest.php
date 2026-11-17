@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\ItemKind;
 use App\Models\Item;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
 
 class StoreReviewRequest extends FormRequest
 {
@@ -22,6 +24,18 @@ class StoreReviewRequest extends FormRequest
             'media' => ['nullable', 'array', 'max:6'],
             'media.*' => ['file', 'mimes:jpg,jpeg,png,webp,mp4,webm', 'max:51200'],
             'mediaConsent' => ['nullable', 'boolean'],
+        ];
+    }
+
+    public function after(): array
+    {
+        return [
+            function (Validator $validator) {
+                $item = Item::query()->find((int) $this->input('itemId'));
+                if ($item?->kind === ItemKind::Product && count($this->file('media', [])) === 0) {
+                    $validator->errors()->add('media', 'Avaliação de produto precisa de pelo menos uma foto ou vídeo.');
+                }
+            },
         ];
     }
 
