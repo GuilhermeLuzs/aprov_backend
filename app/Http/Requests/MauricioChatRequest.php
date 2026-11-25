@@ -18,6 +18,13 @@ class MauricioChatRequest extends FormRequest
             'draft.hasVideo' => ['required', 'boolean'],
             'draft.photoCount' => ['required', 'integer', 'min:0'],
             'draft.commentLength' => ['required', 'integer', 'min:0'],
+            'draft.characteristics' => ['required', 'array:entrega,qualidade,conformidade,custo_beneficio'],
+            'draft.characteristics.*' => ['integer', 'between:0,5'],
+            'draft.positiveTagIds' => ['present', 'array', 'max:30'],
+            'draft.positiveTagIds.*' => ['integer', 'distinct'],
+            'draft.negativeTagIds' => ['present', 'array', 'max:30'],
+            'draft.negativeTagIds.*' => ['integer', 'distinct'],
+            'draft.comment' => ['nullable', 'string', 'max:1000'],
         ];
     }
 
