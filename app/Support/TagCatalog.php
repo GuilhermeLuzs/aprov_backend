@@ -47,7 +47,7 @@ class TagCatalog
                 'sentiment' => $definition['sentiment'],
                 'characteristic' => $definition['characteristic'],
                 'kind' => $definition['kind'],
-                'categories' => json_encode($definition['category'] ? [$definition['category']] : []),
+                'categories' => json_encode($definition['categories']),
                 'position' => $position,
                 'updated_at' => now(),
             ]);
